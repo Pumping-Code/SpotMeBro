@@ -1,21 +1,35 @@
 import React from 'react';
+import { Provider, connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
+import { Actions, Router, Scene, Modal } from 'react-native-router-flux';
+import store from './src/store';
 
-export default class App extends React.Component {
+//Containers
+import HomeContainer from './src/containers/HomeContainer';
+
+const RouterWithRedux = connect()(Router);
+
+const Scenes = Actions.create(
+  <Scene key="modal" component={Modal}>
+    <Scene key="root">
+      <Scene key="home" component={HomeContainer} title="Home" initial />
+    </Scene>
+  </Scene>,
+);
+
+class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>SPOT ME BRO</Text>
-      </View>
+      <Provider store={store}>
+        <RouterWithRedux
+          scenes={Scenes}
+          sceneStyle={{ backgroundColor: '#222' }}
+          navigationBarStyle={{ backgroundColor: '#D7D7D7' }}
+          titleStyle={{ color: 'darkslateblue' }}
+        />
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
