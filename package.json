@@ -24,9 +24,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^16.0.0",
+    "@expo/vector-icons": "^5.0.0",
+    "expo": "^17.0.0",
+    "native-base": "^2.1.5",
     "react": "16.0.0-alpha.6",
-    "react-native": "^0.43.4",
+    "react-native": "^0.44.0",
     "react-native-router-flux": "3.38.0",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",

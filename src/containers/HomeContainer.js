@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Home from '../components/home/Home';
 import styles from '../styles/styles';
 
-const HomeContainer = (props) => (
+const HomeContainer = props => (
   <Home {...props} />
 );
 
