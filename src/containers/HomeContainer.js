@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Platform, View, Text } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon } from 'native-base';
 import styles from '../styles/styles';
 
 class HomeContainer extends Component {
@@ -47,10 +48,21 @@ class HomeContainer extends Component {
     }
 
     return (
-      <View style={styles.container}>
-        <Text>Spot Me Bro</Text>
-        <Text>{text}</Text>
-      </View>
+      <Container>
+        <Content>
+          <Text>{text}</Text>
+          <Button>
+            <Text>I Need A Spot</Text>
+          </Button>
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button full>
+              <Text>Footer</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
 }

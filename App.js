@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Actions, Router, Scene, Modal } from 'react-native-router-flux';
 import store from './src/store';
 
-//Containers
+// Containers
 import HomeContainer from './src/containers/HomeContainer';
 
 const RouterWithRedux = connect()(Router);
@@ -12,7 +12,7 @@ const RouterWithRedux = connect()(Router);
 const Scenes = Actions.create(
   <Scene key="modal" component={Modal}>
     <Scene key="root">
-      <Scene key="home" component={HomeContainer} title="Home" initial />
+      <Scene key="home" component={HomeContainer} title="Spot Me Bro" initial />
     </Scene>
   </Scene>,
 );
@@ -23,7 +23,7 @@ class App extends React.Component {
       <Provider store={store}>
         <RouterWithRedux
           scenes={Scenes}
-          sceneStyle={{ backgroundColor: '#222' }}
+          sceneStyle={{ backgroundColor: '#FFF' }}
           navigationBarStyle={{ backgroundColor: '#D7D7D7' }}
           titleStyle={{ color: 'darkslateblue' }}
         />
