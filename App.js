@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
 import { Actions, Router, Scene, Modal } from 'react-native-router-flux';
 import store from './src/store';
 
@@ -17,19 +16,15 @@ const Scenes = Actions.create(
   </Scene>,
 );
 
-class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <RouterWithRedux
-          scenes={Scenes}
-          sceneStyle={{ backgroundColor: '#FFF' }}
-          navigationBarStyle={{ backgroundColor: '#D7D7D7' }}
-          titleStyle={{ color: 'darkslateblue' }}
-        />
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <RouterWithRedux
+      scenes={Scenes}
+      sceneStyle={{ backgroundColor: '#FFF' }}
+      navigationBarStyle={{ backgroundColor: '#D7D7D7' }}
+      titleStyle={{ color: 'darkslateblue' }}
+    />
+  </Provider>
+);
 
 export default App;

@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Home from '../components/home/Home';
-import styles from '../styles/styles';
 
 const HomeContainer = props => (
   <Home {...props} />
