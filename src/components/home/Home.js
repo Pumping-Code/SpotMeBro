@@ -3,6 +3,8 @@ import { Platform, Text } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
 import { Container, Content, Footer, FooterTab, Button } from 'native-base';
 
+import SpotMe from '../spot-me/SpotMe';
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -49,9 +51,7 @@ class Home extends Component {
       <Container>
         <Content>
           <Text>{text}</Text>
-          <Button>
-            <Text>I Need A Spot</Text>
-          </Button>
+          <SpotMe />
         </Content>
         <Footer>
           <FooterTab>
