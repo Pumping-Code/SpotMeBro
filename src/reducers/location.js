@@ -1,14 +1,14 @@
+import { LOCATION_SEND } from '../actions/';
+
 const initialState = {
-  location: {
-    lat: null,
-    lng: null,
-  },
+  lat: null,
+  lng: null,
 };
 
-export default function reducer(state = initialState, action = {}) {
+export default function (state = initialState, action) {
   switch (action.type) {
-    case 'SET_LOCATION':
-      return { ...state, scene: action.scene };
+    case LOCATION_SEND:
+      return { ...state, payload: action.payload };
     default:
       return state;
   }
