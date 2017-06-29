@@ -14,12 +14,10 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  switch (action.type) {
-    case LOCATION_GET:
-      return Object.assign({}, state, action.payload);
-    case LOCATION_SEND:
-      return { ...state, payload: action.payload };
-    default:
-      return state;
+  if (action.type === LOCATION_GET) {
+    return Object.assign({}, state, action.payload);
+  } else if (action.type === LOCATION_SEND) {
+    return { ...state, payload: action.payload };
   }
+  return state;
 }
