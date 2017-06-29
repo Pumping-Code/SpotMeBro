@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Platform, Text } from 'react-native';
+import { connect } from 'react-redux';
 import { Constants, Location, Permissions } from 'expo';
 import { Container, Content, Footer, FooterTab, Button } from 'native-base';
+import { bindActionCreators } from 'redux';
+
+import { locationGet } from '../../actions';
 
 import SpotMe from '../spot-me/SpotMe';
 
@@ -36,6 +40,7 @@ class Home extends Component {
       distanceInterval: 1,
     }, (location) => {
       this.setState({ location });
+      this.props.locationGet({ location });
     });
   }
 
@@ -65,4 +70,8 @@ class Home extends Component {
   }
 }
 
-export default Home;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ locationGet }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Home);

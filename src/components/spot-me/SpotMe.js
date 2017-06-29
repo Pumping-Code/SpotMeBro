@@ -12,16 +12,16 @@ class SpotMe extends Component {
     this.state = {
     };
 
-    this.onButtonPressk = this.onButtonPressk.bind(this);
+    this.onButtonPressk = this.onButtonPress.bind(this);
   }
 
-  onButtonPressk() {
+  onButtonPress() {
     this.props.locationSend();
   }
 
   render() {
     return (
-      <Button onPress={this.onButtonPressk}>
+      <Button onPress={this.onButtonPress}>
         <Text>I Need A Spot</Text>
       </Button>
     );
