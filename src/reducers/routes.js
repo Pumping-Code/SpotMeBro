@@ -5,10 +5,8 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case ActionConst.FOCUS:
-      return { ...state, scene: action.scene };
-    default:
-      return state;
+  if (action.type === ActionConst.FOCUS) {
+    return { ...state, scene: action.scene };
   }
+  return state;
 }
