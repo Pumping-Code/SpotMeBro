@@ -16,7 +16,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOCATION_GET:
-      return action.payload;
+      return Object.assign({}, state, action.payload);
     case LOCATION_SEND:
       return { ...state, payload: action.payload };
     default:
