@@ -12,7 +12,7 @@ class SpotMe extends Component {
     this.state = {
     };
 
-    this.onButtonPressk = this.onButtonPress.bind(this);
+    this.onButtonPress = this.onButtonPress.bind(this);
   }
 
   onButtonPress() {

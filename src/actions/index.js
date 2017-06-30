@@ -9,10 +9,25 @@ export function locationGet({ location }) {
 }
 
 export function locationSend() {
-  const payload = {};
+  return (dispatch, getState) => {
+    const { latitude, longitude } = getState().location.coords;
+    const request = fetch('https://spot-me-bro-server.herokuapp.com/locations', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        location: {
+          lat: latitude,
+          lng: longitude,
+        },
+      }),
+    });
 
-  return {
-    type: LOCATION_SEND,
-    payload,
+    dispatch({
+      type: LOCATION_SEND,
+      payload: request,
+    });
   };
 }
