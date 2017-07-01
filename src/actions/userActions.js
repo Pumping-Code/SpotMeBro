@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux'; 
 
 const smbAPI = 'https://spot-me-bro-server.herokuapp.com/users';
 
@@ -51,6 +52,8 @@ export const queryFacebookAPI = (token) => {
 							type: SET_USER_TO_STATE,
 							user: response.data[0]
 						})
+						// Send the user to the Home screen
+						Actions.home()
 					})
 					.catch(error => {
 						console.log(error)
