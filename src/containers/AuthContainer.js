@@ -8,7 +8,7 @@ const AuthContainer = props => (
 );
 
 const mapStateToProps = state => ({
-	userState: state.userReducer,
+  userState: state.userReducer,
 });
 
 export default connect(mapStateToProps, actions)(AuthContainer);

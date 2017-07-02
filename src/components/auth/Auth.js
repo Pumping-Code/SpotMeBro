@@ -1,26 +1,25 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Container, Button, Content, Footer, FooterTab } from 'native-base';
-import axios from 'axios';
 
 class Auth extends React.Component {
   componentDidMount() {
-    this.props.facebookLogin()
+    this.props.facebookLogin();
   }
 
   render() {
-    const props = this.props
+    const props = this.props;
     return (
       <Container>
         <Content style={{ marginTop: 100 }}>
           {
-            props.userState.user.username ? 
+            props.userState.user.username ?
               <Text>Hello, {props.userState.user.username}!</Text>
               :
-              <Button 
-                full 
+              <Button
+                full
                 onPress={props.facebookLogin}
-                >
+              >
                 <Text>Login</Text>
               </Button>
           }
@@ -38,4 +37,3 @@ class Auth extends React.Component {
 }
 
 export default Auth;
-

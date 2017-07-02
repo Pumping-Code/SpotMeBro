@@ -10,12 +10,15 @@ export function locationGet({ location }) {
 
 export function locationSend() {
   return (dispatch, getState) => {
-    const { latitude, longitude } = getState().location.coords;
+    const state = getState();
+    const { latitude, longitude } = state.location.coords;
+    const { id } = state.userReducer.user;
     const request = fetch('https://spot-me-bro-server.herokuapp.com/locations', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Auth: id,
       },
       body: JSON.stringify({
         location: {
