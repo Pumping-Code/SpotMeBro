@@ -6,14 +6,18 @@ import store from './src/store';
 // Containers
 import HomeContainer from './src/containers/HomeContainer';
 import AuthContainer from './src/containers/AuthContainer';
+import SplashContainer from './src/containers/SplashContainer';
+import ProfileContainer from './src/containers/ProfileContainer';
 
 const RouterWithRedux = connect()(Router);
 
 const Scenes = Actions.create(
   <Scene key="modal" component={Modal}>
     <Scene key="root">
-      <Scene key="home" component={HomeContainer} title="Spot Me Bro" />
-      <Scene key="auth" component={AuthContainer} title="Login" initial />
+      <Scene key="splash" component={SplashContainer} initial hideNavBar />
+      <Scene key="auth" component={AuthContainer} title="Login" hideNavBar />
+      <Scene key="home" component={HomeContainer} title="Spot Me Bro" hideNavBar />
+      <Scene key="profile" component={ProfileContainer} title="Profile" hideNavBar />
     </Scene>
   </Scene>,
 );

@@ -2,6 +2,7 @@ import {
   FACEBOOK_LOGIN_START,
   FACEBOOK_LOGIN_ERROR,
   SET_USER_TO_STATE,
+  LOG_USER_OUT,
 } from '../actions/userActions';
 
 const initialState = {
@@ -17,6 +18,8 @@ export default function userReducer(state = initialState, action) {
     return { ...state, loading: false, error: action.error };
   } else if (action.type === SET_USER_TO_STATE) {
     return { ...state, loading: false, user: action.user };
+  } else if (action.type === LOG_USER_OUT) {
+    return { ...state, user: {} };
   }
   return state;
 }
