@@ -32,8 +32,8 @@ const LoadingModal = ({ fetching, opacity, flavorText }) => {
   )
 }
 
-LoadingModal.defautlProps = {
-  opacity: 0.2,
+LoadingModal.defaultProps = {
+  opacity: 0.5,
   flavorText: 'Loading...',
 };
 
