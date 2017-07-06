@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions } from 'expo';
-import { Container, Content, Footer, FooterTab, Button } from 'native-base';
+import { Container, Content, Footer, FooterTab, Button, Header, Left, Right, Icon, Body, Title } from 'native-base';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import { locationGet } from '../../actions';
 
@@ -54,14 +55,25 @@ class Home extends Component {
 
     return (
       <Container>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name='menu' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Home</Title>
+          </Body>
+          <Right />
+        </Header>
         <Content>
           <Text>{text}</Text>
           <SpotMe />
         </Content>
         <Footer>
           <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
+            <Button full onPress={Actions.profile}>
+              <Text>Profile</Text>
             </Button>
           </FooterTab>
         </Footer>
