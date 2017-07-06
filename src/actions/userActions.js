@@ -3,7 +3,8 @@ import { Facebook } from 'expo';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
-const smbAPI = 'https://spot-me-bro-server.herokuapp.com/users';
+import smbApi from '../services/api';
+import smbAuth from '../services/auth';
 
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
 export const SET_USER_TO_STATE = 'SET_USER_TO_STATE';
@@ -64,13 +65,19 @@ export const queryFacebookAPI = token => (dispatch) => {
     const user = resUser.data;
     console.log('user from Facebook: ', user);
     // Send user data to Spot Me Bro API
-    axios.post(smbAPI, user)
+    smbApi({
+      method: 'POST',
+      route: '/users',
+      data: user,
+    })
     .then((response) => {
       console.log('user from api: ', response);
       dispatch({
         type: SET_USER_TO_STATE,
         user: response.data[0],
       });
+      // Sets the unique FB id onto our auth service object
+      smbAuth.id = response.data[0].id;
      // Send the user to the Home screen
       Actions.home();
     })

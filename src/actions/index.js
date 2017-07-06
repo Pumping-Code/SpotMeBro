@@ -1,3 +1,5 @@
+import smbApi from '../services/api';
+
 export const LOCATION_GET = 'LOCATION_GET';
 export const LOCATION_SEND = 'LOCATION_SEND';
 
@@ -12,20 +14,22 @@ export function locationSend() {
   return (dispatch, getState) => {
     const state = getState();
     const { latitude, longitude } = state.location.coords;
-    const { id } = state.userReducer.user;
-    const request = fetch('https://spot-me-bro-server.herokuapp.com/locations', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Auth: id,
+    const method = 'POST';
+    const route = '/locations';
+    const data = {
+      location: {
+        lat: latitude,
+        lng: longitude,
       },
-      body: JSON.stringify({
-        location: {
-          lat: latitude,
-          lng: longitude,
-        },
-      }),
+    };
+
+    const request = smbApi({
+      method,
+      route,
+      data,
+    })
+    .then((response) => {
+      console.log(response);
     });
 
     dispatch({
