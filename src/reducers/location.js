@@ -1,4 +1,4 @@
-import { LOCATION_GET, LOCATION_SEND } from '../actions/';
+import { LOCATION_GET, LOCATION_SEND } from '../actions';
 
 const initialState = {
   coords: {

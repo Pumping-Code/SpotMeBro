@@ -3,6 +3,8 @@ import { Facebook } from 'expo';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
+import smbAuth from '../services/auth';
+
 const smbAPI = 'https://spot-me-bro-server.herokuapp.com/users';
 
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
@@ -49,6 +51,7 @@ export const queryFacebookAPI = token => (dispatch) => {
         type: SET_USER_TO_STATE,
         user: response.data[0],
       });
+      smbAuth.id = response.data[0].id;
      // Send the user to the Home screen
       Actions.home();
     })
