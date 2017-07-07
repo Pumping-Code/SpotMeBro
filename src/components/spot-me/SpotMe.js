@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'native-base';
 import { bindActionCreators } from 'redux';
 
-import { locationSend } from '../../actions';
+import * as actions from 'actions/index';
 
 class SpotMe extends Component {
   constructor(props) {

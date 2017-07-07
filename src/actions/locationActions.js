@@ -1,4 +1,4 @@
-import smbApi from '../services/api';
+import smbApi from 'services/api';
 
 export const LOCATION_GET = 'LOCATION_GET';
 export const LOCATION_SEND = 'LOCATION_SEND';
