@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Text, Content, Container } from 'native-base';
-import styles from '../../styles/styles';
+import styles from 'styles/styles';
 
 const quotes = [
   'The worst thing I can be is the same as everybody else. I hate that.',
@@ -11,25 +11,29 @@ const quotes = [
 ];
 
 class Splash extends Component {
-	state = { quote: '' }
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
   componentDidMount() {
-  	// Get random Arnold quote from quotes array
-  	this.setState({
-  		quote: quotes[Math.floor(Math.random() * (quotes.length))]
-  	})
-  	// Give the user some time to read the quote before performing
-  	// async task of checking for their access token.
-  	setTimeout(this.props.checkForToken, 1000);
+    // Get random Arnold quote from quotes array
+    this.setState({
+      quote: quotes[Math.floor(Math.random() * (quotes.length))],
+    });
+    // Give the user some time to read the quote before performing
+    // async task of checking for their access token.
+    setTimeout(this.props.checkForToken, 1000);
   }
 
   render() {
     return (
       <Container>
         <Content>
-        	<View style={styles.container}>
-		        <Text>"{this.state.quote}"</Text>
-        	</View>
+          <View style={styles.container}>
+            <Text>"{this.state.quote}"</Text>
+          </View>
         </Content>
       </Container>
     );

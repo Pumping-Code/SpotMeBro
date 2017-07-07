@@ -3,7 +3,7 @@ import {
   FACEBOOK_LOGIN_ERROR,
   SET_USER_TO_STATE,
   LOG_USER_OUT,
-} from '../actions/userActions';
+} from 'actions/userActions';
 
 const initialState = {
   user: {},
