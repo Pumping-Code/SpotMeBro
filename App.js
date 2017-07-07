@@ -1,13 +1,13 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { Actions, Router, Scene, Modal } from 'react-native-router-flux';
-import store from './src/store';
+import store from 'store';
 
 // Containers
-import HomeContainer from './src/containers/HomeContainer';
-import AuthContainer from './src/containers/AuthContainer';
-import SplashContainer from './src/containers/SplashContainer';
-import ProfileContainer from './src/containers/ProfileContainer';
+import HomeContainer from 'containers/HomeContainer';
+import AuthContainer from 'containers/AuthContainer';
+import SplashContainer from 'containers/SplashContainer';
+import ProfileContainer from 'containers/ProfileContainer';
 
 const RouterWithRedux = connect()(Router);
 
