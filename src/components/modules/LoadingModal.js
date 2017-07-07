@@ -8,33 +8,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
   },
-})
+});
 
-const LoadingModal = ({ fetching, opacity, flavorText }) => {
-  return (
-    <Modal
-      animationType={'none'}
-      transparent={true}
-      visible={fetching}
-    >
-      <View style={[styles.loadingModal, { opacity: opacity }]}>
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-          <Text style={{ color: '#FFF' }}>{flavorText}</Text>
-        </View>
-        <ActivityIndicator 
-          animating={true}
-          color={'#FFF'}
-          size={'large'}
-          style={{ flex: 1,justifyContent: 'flex-start' }}
-        />
+const LoadingModal = ({ fetching, opacity, flavorText }) => (
+  <Modal
+    animationType={'none'}
+    transparent
+    visible={fetching}
+  >
+    <View style={[styles.loadingModal, { opacity }]}>
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <Text style={{ color: '#FFF' }}>{flavorText}</Text>
       </View>
-    </Modal>
-  )
-}
+      <ActivityIndicator
+        animating
+        color={'#FFF'}
+        size={'large'}
+        style={{ flex: 1, justifyContent: 'flex-start' }}
+      />
+    </View>
+  </Modal>
+  );
 
 LoadingModal.defaultProps = {
   opacity: 0.5,
   flavorText: 'Loading...',
 };
 
-export default LoadingModal
+export default LoadingModal;

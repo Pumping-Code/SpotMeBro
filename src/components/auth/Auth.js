@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Container, Button, Content, Footer, FooterTab } from 'native-base';
-import LoadingModal from '../modules/LoadingModal';
+import LoadingModal from 'components/modules/LoadingModal';
 
 class Auth extends React.Component {
   render() {

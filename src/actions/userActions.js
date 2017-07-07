@@ -3,8 +3,8 @@ import { Facebook } from 'expo';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 
-import smbApi from '../services/api';
-import smbAuth from '../services/auth';
+import smbApi from 'services/api';
+import smbAuth from 'services/auth';
 
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
 export const SET_USER_TO_STATE = 'SET_USER_TO_STATE';
@@ -25,26 +25,26 @@ export const checkForToken = () => (dispatch) => {
     console.log(error);
     // send user the login screen
     Actions.auth();
-  })
-}
+  });
+};
 
 // Get the user access token from Facebook
 export const facebookLogin = () => (dispatch) => {
   // set loading true
   dispatch({ type: FACEBOOK_LOGIN_START });
-  
+
   Facebook.logInWithReadPermissionsAsync('667138290125485', {
     permissions: ['public_profile'],
   })
   .then((response) => {
     if (response.type === 'cancel') {
-      console.log('~~~~~~', response)
+      console.log('~~~~~~', response);
       dispatch({
         type: FACEBOOK_LOGIN_ERROR,
         error: response,
       });
     } else {
-      console.log('~~~~~~', response)
+      console.log('~~~~~~', response);
       AsyncStorage.setItem('fb_token', response.token);
       queryFacebookAPI(response.token)(dispatch);
     }
@@ -101,5 +101,5 @@ export const queryFacebookAPI = token => (dispatch) => {
 export const logOut = () => (dispatch) => {
   dispatch({ type: LOG_USER_OUT });
   AsyncStorage.removeItem('fb_token')
-  .then(() => Actions.auth())
-}
+  .then(() => Actions.auth());
+};

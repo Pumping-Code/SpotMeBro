@@ -6,9 +6,9 @@ import { Container, Content, Footer, FooterTab, Button, Header, Left, Right, Ico
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
-import { locationGet } from '../../actions';
+import * as actions from 'actions/locationActions';
 
-import SpotMe from '../spot-me/SpotMe';
+import SpotMe from 'components/spot-me/SpotMe';
 
 class Home extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class Home extends Component {
         <Header>
           <Left>
             <Button transparent>
-              <Icon name='menu' />
+              <Icon name="menu" />
             </Button>
           </Left>
           <Body>
@@ -83,7 +83,7 @@ class Home extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ locationGet }, dispatch);
+  return bindActionCreators(actions, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Home);
