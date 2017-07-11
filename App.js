@@ -1,32 +1,23 @@
-import React from 'react';
-import { Provider, connect } from 'react-redux';
-import { Actions, Router, Scene, Modal } from 'react-native-router-flux';
+import React, { Component } from 'react';
+import { Font } from 'expo';
+import { Provider } from 'react-redux';
 import AppWithNavigationState from './src/navigators/AppNavigator';
 import store from 'store';
 
-// Containers
-import HomeContainer from 'containers/HomeContainer';
-import AuthContainer from 'containers/AuthContainer';
-import SplashContainer from 'containers/SplashContainer';
-import ProfileContainer from 'containers/ProfileContainer';
+class App extends Component {
+  async componentWillMount() {
+    await Font.loadAsync({
+      Ionicons: require('native-base/Fonts/Ionicons.ttf'),
+    });
+  }
 
-const RouterWithRedux = connect()(Router);
-
-const Scenes = Actions.create(
-  <Scene key="modal" component={Modal}>
-    <Scene key="root">
-      <Scene key="splash" component={SplashContainer} initial hideNavBar />
-      <Scene key="auth" component={AuthContainer} title="Login" hideNavBar />
-      <Scene key="home" component={HomeContainer} title="Spot Me Bro" hideNavBar />
-      <Scene key="profile" component={ProfileContainer} title="Profile" hideNavBar />
-    </Scene>
-  </Scene>,
-);
-
-const App = () => (
-  <Provider store={store}>
-   <AppWithNavigationState />
-  </Provider>
-);
+  render() {
+    return (
+      <Provider store={store}>
+        <AppWithNavigationState />
+      </Provider>
+    );
+  }
+}
 
 export default App;
