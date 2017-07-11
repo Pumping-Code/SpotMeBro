@@ -6,6 +6,11 @@ const HomeContainer = props => (
   <Home {...props} />
 );
 
+HomeContainer.navigationOptions = () => ({
+  title: 'Spot Me Bro',
+  headerLeft: null,
+});
+
 const mapStateToProps = state => state;
 
 export default connect(mapStateToProps)(HomeContainer);

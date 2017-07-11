@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { Actions, Router, Scene, Modal } from 'react-native-router-flux';
+import AppWithNavigationState from './src/navigators/AppNavigator';
 import store from 'store';
 
 // Containers
@@ -24,12 +25,7 @@ const Scenes = Actions.create(
 
 const App = () => (
   <Provider store={store}>
-    <RouterWithRedux
-      scenes={Scenes}
-      sceneStyle={{ backgroundColor: '#FFF' }}
-      navigationBarStyle={{ backgroundColor: '#D7D7D7' }}
-      titleStyle={{ color: 'darkslateblue' }}
-    />
+   <AppWithNavigationState />
   </Provider>
 );
 

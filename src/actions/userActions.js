@@ -1,7 +1,7 @@
-import { AsyncStorage, Alert } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
 import axios from 'axios';
-import { Actions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 
 import smbApi from 'services/api';
 import smbAuth from 'services/auth';
@@ -11,12 +11,47 @@ export const SET_USER_TO_STATE = 'SET_USER_TO_STATE';
 export const FACEBOOK_LOGIN_ERROR = 'FACEBOOK_LOGIN_ERROR';
 export const LOG_USER_OUT = 'LOG_USER_OUT';
 
+
+// Query the Facebook Graph API with the user access token
+export const queryFacebookAPI = token => (dispatch) => {
+  axios(`https://graph.facebook.com/me?access_token=${token}`)
+  .then((resUser) => {
+    const user = resUser.data;
+    console.log('user from Facebook: ', user);
+    // Send user data to Spot Me Bro API
+    axios.post(smbAPI, user)
+    .then((response) => {
+      console.log('user from api: ', response);
+      dispatch({
+        type: SET_USER_TO_STATE,
+        user: response.data[0],
+      });
+     // Send the user to the Home screen
+      dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch({
+        type: FACEBOOK_LOGIN_ERROR,
+        error,
+      });
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+    dispatch({
+      type: FACEBOOK_LOGIN_ERROR,
+      error,
+    });
+  });
+};
+
 export const checkForToken = () => (dispatch) => {
   AsyncStorage.getItem('fb_token')
   .then((token) => {
     if (token === null) {
       // send user the login screen
-      Actions.auth();
+      dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
     } else {
       queryFacebookAPI(token)(dispatch);
     }
@@ -24,7 +59,7 @@ export const checkForToken = () => (dispatch) => {
   .catch((error) => {
     console.log(error);
     // send user the login screen
-    Actions.auth();
+    dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
   });
 };
 
@@ -58,48 +93,8 @@ export const facebookLogin = () => (dispatch) => {
   });
 };
 
-// Query the Facebook Graph API with the user access token
-export const queryFacebookAPI = token => (dispatch) => {
-  axios(`https://graph.facebook.com/me?access_token=${token}`)
-  .then((resUser) => {
-    const user = resUser.data;
-    console.log('user from Facebook: ', user);
-    // Send user data to Spot Me Bro API
-    smbApi({
-      method: 'POST',
-      route: '/users',
-      data: user,
-    })
-    .then((response) => {
-      console.log('user from api: ', response);
-      dispatch({
-        type: SET_USER_TO_STATE,
-        user: response.data[0],
-      });
-      // Sets the unique FB id onto our auth service object
-      smbAuth.id = response.data[0].id;
-     // Send the user to the Home screen
-      Actions.home();
-    })
-    .catch((error) => {
-      console.log(error);
-      dispatch({
-        type: FACEBOOK_LOGIN_ERROR,
-        error,
-      });
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-    dispatch({
-      type: FACEBOOK_LOGIN_ERROR,
-      error,
-    });
-  });
-};
-
 export const logOut = () => (dispatch) => {
   dispatch({ type: LOG_USER_OUT });
   AsyncStorage.removeItem('fb_token')
-  .then(() => Actions.auth());
+  .then(() => dispatch(NavigationActions.navigate({ routeName: 'Auth' })));
 };

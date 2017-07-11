@@ -7,6 +7,10 @@ const SplashContainer = props => (
   <Splash {...props} />
 );
 
+SplashContainer.navigationOptions = {
+  header: null,
+};
+
 const mapStateToProps = state => ({
   ...state.userReducer,
 });
