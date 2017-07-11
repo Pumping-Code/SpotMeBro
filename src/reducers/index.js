@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import location from './location';
 import userReducer from './userReducer';
-import routes from './routes';
+import nav from './navigationReducer';
 
 export default combineReducers({
   location,
   userReducer,
-  routes,
+  nav,
 });

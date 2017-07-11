@@ -7,6 +7,11 @@ const AuthContainer = props => (
   <Auth {...props} />
 );
 
+AuthContainer.navigationOptions = () => ({
+  title: 'Login',
+  headerLeft: null,
+});
+
 const mapStateToProps = state => ({
   ...state.userReducer,
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { Container, Button, Content, Footer, FooterTab } from 'native-base';
+import { Container, Button, Content, Icon } from 'native-base';
 
-const Profile = (props) => (
+const Profile = props => (
   <Container>
     <Content style={{ marginTop: 100 }}>
       {

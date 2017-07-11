@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions } from 'expo';
 import { Container, Content, Footer, FooterTab, Button, Header, Left, Right, Icon, Body, Title } from 'native-base';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
 
 import { locationGet } from '../../actions';
 
@@ -18,6 +17,7 @@ class Home extends Component {
       errorMessage: null,
     };
   }
+
 
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
@@ -46,6 +46,8 @@ class Home extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     let text = 'Waiting..';
     if (this.state.errorMessage) {
       text = this.state.errorMessage;
@@ -55,24 +57,13 @@ class Home extends Component {
 
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Home</Title>
-          </Body>
-          <Right />
-        </Header>
         <Content>
           <Text>{text}</Text>
           <SpotMe />
         </Content>
         <Footer>
           <FooterTab>
-            <Button full onPress={Actions.profile}>
+            <Button full onPress={() => navigate('Profile')}>
               <Text>Profile</Text>
             </Button>
           </FooterTab>
@@ -81,6 +72,12 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ locationGet }, dispatch);

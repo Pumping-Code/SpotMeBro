@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import { Text, Content, Container } from 'native-base';
 import styles from '../../styles/styles';
@@ -11,29 +11,34 @@ const quotes = [
 ];
 
 class Splash extends Component {
-	state = { quote: '' }
+  constructor(props) {
+    super(props);
+    this.state = {
+      quote: quotes[Math.floor(Math.random() * (quotes.length))],
+    };
+  }
 
   componentDidMount() {
-  	// Get random Arnold quote from quotes array
-  	this.setState({
-  		quote: quotes[Math.floor(Math.random() * (quotes.length))]
-  	})
-  	// Give the user some time to read the quote before performing
-  	// async task of checking for their access token.
-  	setTimeout(this.props.checkForToken, 1000);
+    // Give the user some time to read the quote before performing
+    // async task of checking for their access token.
+    setTimeout(this.props.checkForToken, 1000);
   }
 
   render() {
     return (
       <Container>
         <Content>
-        	<View style={styles.container}>
-		        <Text>"{this.state.quote}"</Text>
-        	</View>
+          <View style={styles.container}>
+            <Text>{`"${this.state.quote}"`}</Text>
+          </View>
         </Content>
       </Container>
     );
   }
 }
+
+Splash.propTypes = {
+  checkForToken: PropTypes.func.isRequired,
+};
 
 export default Splash;
