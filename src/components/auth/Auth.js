@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Text } from 'react-native';
 import { Container, Button, Content } from 'native-base';
-import LoadingModal from '../modules/LoadingModal';
+import LoadingModal from 'components/modules/LoadingModal';
 
 const Auth = props => (
   <Container>

@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react'
-import { Text } from 'react-native'
+import React, { Component, PropTypes } from 'react';
+import { Text } from 'react-native';
 
 export default class TextPrimary extends Component {
   constructor(props) {
-    super(props)
-    this.style = []
+    super(props);
+    this.style = [];
     if (props.style) {
       if (Array.isArray(props.style)) {
-        this.style = this.style.concat(props.style)
+        this.style = this.style.concat(props.style);
       } else {
-        this.style.push(props.style)
+        this.style.push(props.style);
       }
     }
   }
@@ -19,6 +19,6 @@ export default class TextPrimary extends Component {
       <Text {...this.props} style={this.style}>
         {this.props.children}
       </Text>
-    )
+    );
   }
 }

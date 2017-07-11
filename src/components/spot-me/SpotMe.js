@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'native-base';
 import { bindActionCreators } from 'redux';
 
-import { locationSend } from '../../actions';
+import * as actions from 'actions/locationActions';
 
 class SpotMe extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class SpotMe extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ locationSend }, dispatch);
+  return bindActionCreators(actions, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SpotMe);

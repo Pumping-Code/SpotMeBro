@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import { Text, Content, Container } from 'native-base';
-import styles from '../../styles/styles';
+import styles from 'styles/styles';
 
 const quotes = [
   'The worst thing I can be is the same as everybody else. I hate that.',

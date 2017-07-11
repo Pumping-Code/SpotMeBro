@@ -3,7 +3,8 @@ import { Facebook } from 'expo';
 import axios from 'axios';
 import { NavigationActions } from 'react-navigation';
 
-const smbAPI = 'https://spot-me-bro-server.herokuapp.com/users';
+import smbApi from 'services/api';
+import smbAuth from 'services/auth';
 
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
 export const SET_USER_TO_STATE = 'SET_USER_TO_STATE';

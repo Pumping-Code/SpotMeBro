@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Profile from '../components/profile/Profile';
+import Profile from 'components/profile/Profile';
 import BackButton from '../components/modules/BackButton';
-
-import * as actions from '../actions/userActions';
+import * as actions from 'actions/userActions';
 
 const ProfileContainer = props => (
   <Profile {...props} />

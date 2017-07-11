@@ -5,9 +5,9 @@ import { Constants, Location, Permissions } from 'expo';
 import { Container, Content, Footer, FooterTab, Button, Header, Left, Right, Icon, Body, Title } from 'native-base';
 import { bindActionCreators } from 'redux';
 
-import { locationGet } from '../../actions';
+import * as actions from 'actions/locationActions';
 
-import SpotMe from '../spot-me/SpotMe';
+import SpotMe from 'components/spot-me/SpotMe';
 
 class Home extends Component {
   constructor(props) {
@@ -57,6 +57,17 @@ class Home extends Component {
 
     return (
       <Container>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Home</Title>
+          </Body>
+          <Right />
+        </Header>
         <Content>
           <Text>{text}</Text>
           <SpotMe />
@@ -80,7 +91,7 @@ Home.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ locationGet }, dispatch);
+  return bindActionCreators(actions, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Home);
