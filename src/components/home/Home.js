@@ -57,17 +57,6 @@ class Home extends Component {
 
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Home</Title>
-          </Body>
-          <Right />
-        </Header>
         <Content>
           <Text>{text}</Text>
           <SpotMe />
