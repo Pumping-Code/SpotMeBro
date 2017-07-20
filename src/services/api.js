@@ -8,7 +8,7 @@ function smbApi({ method, route, data = null }) {
     url: `https://spot-me-bro-server.herokuapp.com${route}`,
     data,
     headers: {
-      Auth: smbAuth.id,
+      Auth: smbAuth.fbid,
     },
   });
 }
