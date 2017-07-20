@@ -31,7 +31,7 @@ export const queryFacebookAPI = token => (dispatch) => {
         user: response.data[0],
       });
       // Sets the unique FB id onto our auth service object
-      smbAuth.id = response.data[0].id;
+      smbAuth.fbid = response.data[0].fbid;
       // Send the user to the Home screen
       dispatch(NavigationActions.navigate({ routeName: 'Home' }));
     })
