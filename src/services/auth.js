@@ -1,5 +1,5 @@
 const auth = {
-  id: null,
+  fbid: null,
 };
 
 export default auth;
