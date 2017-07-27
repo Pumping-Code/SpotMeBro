@@ -6,11 +6,29 @@ import { NavigationActions } from 'react-navigation';
 import smbApi from 'services/api';
 import smbAuth from 'services/auth';
 
+// Authentication action types
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
 export const SET_USER_TO_STATE = 'SET_USER_TO_STATE';
 export const FACEBOOK_LOGIN_ERROR = 'FACEBOOK_LOGIN_ERROR';
 export const LOG_USER_OUT = 'LOG_USER_OUT';
 
+// Users action types
+export const GET_USERS_START = 'GET_USERS_START';
+export const SET_USERS_TO_STATE = 'SET_USERS_TO_STATE';
+
+export const getUsers = () => (dispatch) => {
+  // set loading state to true
+  dispatch({ type: GET_USERS_START });
+
+  smbApi({ method: 'GET', route: '/locations' })
+  .then((response) => {
+    console.log('users', response.data);
+    dispatch({
+      type: SET_USERS_TO_STATE,
+      users: response.data,
+    });
+  });
+};
 
 // Query the Facebook Graph API with the user access token
 export const queryFacebookAPI = token => (dispatch) => {

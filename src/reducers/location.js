@@ -3,8 +3,8 @@ import { LOCATION_GET, LOCATION_SEND } from 'actions/locationActions';
 const initialState = {
   coords: {
     speed: null,
-    latitude: null,
-    longitude: null,
+    latitude: 30.2672,
+    longitude: -97.7431,
     accuracy: null,
     heading: null,
     altitude: null,

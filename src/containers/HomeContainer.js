@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Home from 'components/home/Home';
+import { getUsers } from 'actions/userActions';
 
 const HomeContainer = props => (
   <Home {...props} />
@@ -13,4 +14,4 @@ HomeContainer.navigationOptions = () => ({
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps)(HomeContainer);
+export default connect(mapStateToProps, { getUsers })(HomeContainer);

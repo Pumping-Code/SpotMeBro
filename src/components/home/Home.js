@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions } from 'expo';
-import { Container, Content, Footer, FooterTab, Button, Header, Left, Right, Icon, Body, Title } from 'native-base';
+import { Container, Content, Footer, FooterTab, Button } from 'native-base';
 import { bindActionCreators } from 'redux';
 
 import * as actions from 'actions/locationActions';
-
-import SpotMe from 'components/spot-me/SpotMe';
+import BroMap from 'components/bro-map/BroMap';
+import SpotMe from 'components/home/SpotMe';
 
 class Home extends Component {
   constructor(props) {
@@ -46,7 +46,8 @@ class Home extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    const props = this.props;
+    const { navigate } = props.navigation;
 
     let text = 'Waiting..';
     if (this.state.errorMessage) {
@@ -60,6 +61,7 @@ class Home extends Component {
         <Content>
           <Text>{text}</Text>
           <SpotMe />
+          <BroMap {...props} />
         </Content>
         <Footer>
           <FooterTab>
