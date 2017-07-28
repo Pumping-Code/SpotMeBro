@@ -15,7 +15,7 @@ export function locationGet({ location }) {
 export function locationSend() {
   return (dispatch, getState) => {
     const state = getState();
-    const { latitude, longitude } = state.location.coords;
+    const { latitude, longitude } = state.locationState.coords;
     const method = 'POST';
     const route = '/locations';
     const data = {
@@ -24,21 +24,22 @@ export function locationSend() {
         lng: longitude,
       },
     };
-    dispatch({
-      type: LOCATION_SEND,
-      payload: request,
-    });
-    setTimeout(() => {
-      dispatch({ type: GET_LOCATIONS_COMPLETE });
-      dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
-    }, 2000);
-    const request = smbApi({
+    // Set loading to true
+    dispatch({ type: LOCATION_SEND });
+    // sent location to api
+    smbApi({
       method,
       route,
       data,
     })
     .then((response) => {
-      console.log(response);
+      // route user to Bro Map
+      dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
+      // set locations to redux and set loading false
+      dispatch({
+        type: GET_LOCATIONS_COMPLETE,
+        userLocations: response.data,
+      });
     });
   };
 }

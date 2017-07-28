@@ -16,15 +16,16 @@ const initialState = {
   },
   timestamp: null,
   loading: false,
+  userLocations: [],
 };
 
-export default function (state = initialState, action) {
+export default function locationReducer(state = initialState, action) {
   if (action.type === LOCATION_GET) {
     return Object.assign({}, state, action.payload);
   } else if (action.type === LOCATION_SEND) {
-    return { ...state, payload: action.payload, loading: true };
+    return { ...state, loading: true };
   } else if (action.type === GET_LOCATIONS_COMPLETE) {
-    return { ...state, loading: false };
+    return { ...state, loading: false, userLocations: action.userLocations };
   }
   return state;
 }

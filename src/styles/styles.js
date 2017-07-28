@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     height,
     width,
   },
+  map: {
+    height,
+    width,
+  },
 });
 
 export default styles;
