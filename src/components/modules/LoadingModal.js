@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoadingModal = ({ fetching, opacity, flavorText }) => (
+const LoadingModal = ({ fetching, opacity, flavorText, animationType }) => (
   <Modal
-    animationType={'none'}
+    animationType={animationType}
     transparent
     visible={fetching}
   >
@@ -33,6 +33,7 @@ const LoadingModal = ({ fetching, opacity, flavorText }) => (
 LoadingModal.defaultProps = {
   opacity: 0.5,
   flavorText: 'Loading...',
+  animationType: 'none',
 };
 
 export default LoadingModal;

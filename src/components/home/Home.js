@@ -1,13 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Platform, Text } from 'react-native';
-import { connect } from 'react-redux';
 import { Constants, Location, Permissions } from 'expo';
-import { Container, Content, Footer, FooterTab, Button, Header, Left, Right, Icon, Body, Title } from 'native-base';
-import { bindActionCreators } from 'redux';
-
-import * as actions from 'actions/locationActions';
-
-import SpotMe from 'components/spot-me/SpotMe';
+import { Container, Content, Footer, FooterTab, Button } from 'native-base';
+import LoadingModal from 'components/modules/LoadingModal';
+import SpotMe from 'components/home/SpotMe';
 
 class Home extends Component {
   constructor(props) {
@@ -17,7 +13,6 @@ class Home extends Component {
       errorMessage: null,
     };
   }
-
 
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
@@ -46,7 +41,8 @@ class Home extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    const props = this.props;
+    const { navigate } = props.navigation;
 
     let text = 'Waiting..';
     if (this.state.errorMessage) {
@@ -58,6 +54,12 @@ class Home extends Component {
     return (
       <Container>
         <Content>
+          <LoadingModal
+            fetching={props.locationState.loading}
+            animationType={'slide'}
+            opacity={1}
+            flavorText={'Search for Bros near you...'}
+          />
           <Text>{text}</Text>
           <SpotMe />
         </Content>
@@ -79,8 +81,4 @@ Home.propTypes = {
   }).isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(Home);
+export default Home;

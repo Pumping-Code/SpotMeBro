@@ -8,12 +8,14 @@ import SplashContainer from '../containers/SplashContainer';
 import AuthContainer from '../containers/AuthContainer';
 import HomeContainer from '../containers/HomeContainer';
 import ProfileContainer from '../containers/ProfileContainer';
+import BroMapContainer from '../containers/BroMapContainer';
 
 export const AppNavigator = StackNavigator({
   Splash: { screen: SplashContainer },
   Auth: { screen: AuthContainer },
   Home: { screen: HomeContainer },
   Profile: { screen: ProfileContainer },
+  BroMap: { screen: BroMapContainer },
 });
 
 const AppWithNavigationState = ({ dispatch, nav }) => (

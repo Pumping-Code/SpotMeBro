@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Text, Content, Container } from 'native-base';
 import styles from 'styles/styles';
 
@@ -8,6 +8,10 @@ const quotes = [
   'Milk is for babies. When you grow up you have to drink beer.',
   'Strength does not come from winning. Your struggles develop your strengths. When you go through hardships and decide not to surrender, that is strength.',
   'It\'s simple, if it jiggles, it\'s fat.',
+  'Get to the choppa!',
+  'Hasta la vista, baby.',
+  'Just remember, you can\'t climb the ladder of success with your hands in your pockets.',
+  'I\'ll be back.',
 ];
 
 class Splash extends Component {
@@ -19,6 +23,7 @@ class Splash extends Component {
   }
 
   componentDidMount() {
+    // AsyncStorage.removeItem('fb_token');
     // Give the user some time to read the quote before performing
     // async task of checking for their access token.
     setTimeout(this.props.checkForToken, 1000);
