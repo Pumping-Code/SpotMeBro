@@ -6,7 +6,6 @@ import { Container, Content, Footer, FooterTab, Button } from 'native-base';
 import { bindActionCreators } from 'redux';
 
 import * as actions from 'actions/locationActions';
-import BroMap from 'components/bro-map/BroMap';
 import SpotMe from 'components/home/SpotMe';
 
 class Home extends Component {
@@ -61,7 +60,6 @@ class Home extends Component {
         <Content>
           <Text>{text}</Text>
           <SpotMe />
-          <BroMap {...props} />
         </Content>
         <Footer>
           <FooterTab>

@@ -4,7 +4,7 @@ import userReducer from './userReducer';
 import nav from './navigationReducer';
 
 export default combineReducers({
-  location,
-  userReducer,
+  locationState: location,
+  userState: userReducer,
   nav,
 });
