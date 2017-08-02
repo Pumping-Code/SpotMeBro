@@ -94,7 +94,7 @@ export const facebookLogin = () => (dispatch) => {
   dispatch({ type: FACEBOOK_LOGIN_START });
 
   Facebook.logInWithReadPermissionsAsync('667138290125485', {
-    permissions: ['public_profile'],
+    permissions: ['public_profile', 'email'],
   })
   .then((response) => {
     if (response.type === 'cancel') {
