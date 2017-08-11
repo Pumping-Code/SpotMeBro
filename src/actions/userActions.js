@@ -5,6 +5,7 @@ import { NavigationActions } from 'react-navigation';
 
 import smbApi from 'services/api';
 import smbAuth from 'services/auth';
+import smbPush from 'services/push';
 
 // Authentication action types
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
@@ -36,29 +37,35 @@ export const queryFacebookAPI = token => (dispatch) => {
   .then((resUser) => {
     const user = resUser.data;
     console.log('user from Facebook: ', user);
-    // Send user data to Spot Me Bro API
-    smbApi({
-      method: 'POST',
-      route: '/users',
-      data: user,
-    })
-    .then((response) => {
-      console.log('user from api: ', response);
-      dispatch({
-        type: SET_USER_TO_STATE,
-        user: response.data[0],
-      });
-      // Sets the unique FB id onto our auth service object
-      smbAuth.id = response.data[0].id;
-      smbAuth.token = token;
-      // Send the user to the Home screen
-      dispatch(NavigationActions.navigate({ routeName: 'Home' }));
-    })
-    .catch((error) => {
-      console.log(error);
-      dispatch({
-        type: FACEBOOK_LOGIN_ERROR,
-        error,
+
+    smbPush()
+    .then((pushToken) => {
+      console.log('pushToken', pushToken);
+      user.pushToken = pushToken;
+      // Send user data to Spot Me Bro API
+      smbApi({
+        method: 'POST',
+        route: '/users',
+        data: user,
+      })
+      .then((response) => {
+        console.log('user from api: ', response);
+        dispatch({
+          type: SET_USER_TO_STATE,
+          user: response.data[0],
+        });
+        // Sets the unique FB id onto our auth service object
+        smbAuth.id = response.data[0].id;
+        smbAuth.token = token;
+        // Send the user to the Home screen
+        dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: FACEBOOK_LOGIN_ERROR,
+          error,
+        });
       });
     });
   })
@@ -94,7 +101,7 @@ export const facebookLogin = () => (dispatch) => {
   dispatch({ type: FACEBOOK_LOGIN_START });
 
   Facebook.logInWithReadPermissionsAsync('667138290125485', {
-    permissions: ['public_profile'],
+    permissions: ['public_profile', 'email'],
   })
   .then((response) => {
     if (response.type === 'cancel') {
