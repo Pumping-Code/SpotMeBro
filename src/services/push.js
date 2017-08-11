@@ -6,11 +6,11 @@ export default async () => {
 
   if (previousToken) { return; }
 
-  const { status } = await Permissions.askAsync(Permissions.REMOTE_NOTIFICATIONS);
+  const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
   if (status !== 'granted') { return; }
 
-  const token = await Notifications.getExponentPushTokenAsync();
+  const token = await Notifications.getExpoPushTokenAsync();
 
   AsyncStorage.setItem('pushtoken', token);
 
