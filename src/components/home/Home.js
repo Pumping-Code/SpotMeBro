@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Platform, Text } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
 import { Container, Content, Footer, FooterTab, Button } from 'native-base';
