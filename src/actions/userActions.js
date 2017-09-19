@@ -22,77 +22,83 @@ export const getUsers = () => (dispatch) => {
   dispatch({ type: GET_USERS_START });
 
   smbApi({ method: 'GET', route: '/locations' })
-  .then((response) => {
-    console.log('users', response.data);
-    dispatch({
-      type: SET_USERS_TO_STATE,
-      users: response.data,
+    .then((response) => {
+      console.log('users', response.data);
+      dispatch({
+        type: SET_USERS_TO_STATE,
+        users: response.data,
+      });
     });
-  });
 };
 
 // Query the Facebook Graph API with the user access token
 export const queryFacebookAPI = token => (dispatch) => {
   axios(`https://graph.facebook.com/me?access_token=${token}`)
-  .then((resUser) => {
-    const user = resUser.data;
-    console.log('user from Facebook: ', user);
+    .then((resUser) => {
+      const user = resUser.data;
+      console.log('user from Facebook: ', user);
 
-    smbPush()
-    .then((pushToken) => {
-      console.log('pushToken', pushToken);
-      user.pushToken = pushToken;
-      // Send user data to Spot Me Bro API
-      smbApi({
-        method: 'POST',
-        route: '/users',
-        data: user,
-      })
-      .then((response) => {
-        console.log('user from api: ', response);
-        dispatch({
-          type: SET_USER_TO_STATE,
-          user: response.data[0],
+      smbPush()
+        .then((pushToken) => {
+          console.log('pushToken', pushToken);
+          user.pushToken = pushToken;
+          // Send user data to Spot Me Bro API
+          smbApi({
+            method: 'POST',
+            route: '/users',
+            data: user,
+          })
+            .then((response) => {
+              console.log('user from api: ', response);
+              dispatch({
+                type: SET_USER_TO_STATE,
+                user: response.data[0],
+              });
+              // Sets the unique FB id onto our auth service object
+              smbAuth.id = response.data[0].id;
+              smbAuth.token = token;
+              // Send the user to the Home screen
+              dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+            })
+            .catch((error) => {
+              console.log(error);
+              dispatch({
+                type: FACEBOOK_LOGIN_ERROR,
+                error,
+              });
+            });
         });
-        // Sets the unique FB id onto our auth service object
-        smbAuth.id = response.data[0].id;
-        smbAuth.token = token;
-        // Send the user to the Home screen
-        dispatch(NavigationActions.navigate({ routeName: 'Home' }));
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({
-          type: FACEBOOK_LOGIN_ERROR,
-          error,
-        });
+    })
+    .catch((error) => {
+      console.log('error', error);
+      dispatch({
+        type: FACEBOOK_LOGIN_ERROR,
+        error,
       });
+      if (error.response.data.error.code === 190) {
+        AsyncStorage.removeItem('fb_token')
+          .then(() => {
+            dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
+          });
+      }
     });
-  })
-  .catch((error) => {
-    console.log(error);
-    dispatch({
-      type: FACEBOOK_LOGIN_ERROR,
-      error,
-    });
-  });
 };
 
 export const checkForToken = () => (dispatch) => {
   AsyncStorage.getItem('fb_token')
-  .then((token) => {
-    if (token === null) {
+    .then((token) => {
+      if (token === null) {
+      // send user the login screen
+        dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
+      } else {
+        queryFacebookAPI(token)(dispatch);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
       // send user the login screen
       dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
-    } else {
-      queryFacebookAPI(token)(dispatch);
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-    // send user the login screen
-    dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
-  });
+    });
 };
 
 // Get the user access token from Facebook
@@ -103,30 +109,30 @@ export const facebookLogin = () => (dispatch) => {
   Facebook.logInWithReadPermissionsAsync('667138290125485', {
     permissions: ['public_profile', 'email'],
   })
-  .then((response) => {
-    if (response.type === 'cancel') {
-      console.log('~~~~~~', response);
+    .then((response) => {
+      if (response.type === 'cancel') {
+        console.log('~~~~~~', response);
+        dispatch({
+          type: FACEBOOK_LOGIN_ERROR,
+          error: response,
+        });
+      } else {
+        console.log('~~~~~~', response);
+        AsyncStorage.setItem('fb_token', response.token);
+        queryFacebookAPI(response.token)(dispatch);
+      }
+    })
+    .catch((error) => {
+      console.log('error', error);
       dispatch({
         type: FACEBOOK_LOGIN_ERROR,
-        error: response,
+        error,
       });
-    } else {
-      console.log('~~~~~~', response);
-      AsyncStorage.setItem('fb_token', response.token);
-      queryFacebookAPI(response.token)(dispatch);
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-    dispatch({
-      type: FACEBOOK_LOGIN_ERROR,
-      error,
     });
-  });
 };
 
 export const logOut = () => (dispatch) => {
   dispatch({ type: LOG_USER_OUT });
   AsyncStorage.removeItem('fb_token')
-  .then(() => dispatch(NavigationActions.navigate({ routeName: 'Auth' })));
+    .then(() => dispatch(NavigationActions.navigate({ routeName: 'Auth' })));
 };
