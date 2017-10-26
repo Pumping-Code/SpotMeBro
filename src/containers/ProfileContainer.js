@@ -14,7 +14,7 @@ ProfileContainer.navigationOptions = ({ navigation }) => ({
 });
 
 const mapStateToProps = state => ({
-  ...state.userReducer,
+  ...state.userState,
 });
 
 
