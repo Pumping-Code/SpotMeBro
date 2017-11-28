@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Font } from 'expo';
 import { Provider } from 'react-redux';
-import Reactotron from 'reactotron-react-native';
+// import Reactotron from 'reactotron-react-native';
 import AppWithNavigationState from './src/navigators/AppNavigator';
-import host from './host';
+// import host from './host';
 import store from 'store';
 
-Reactotron.configure({ host }).useReactNative();
+// Reactotron.configure({ host }).useReactNative();
 
 class App extends Component {
   async componentWillMount() {
@@ -15,9 +15,9 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
-    Reactotron.connect();
-  }
+  // componentDidMount() {
+  //   Reactotron.connect();
+  // }
 
   render() {
     return (
