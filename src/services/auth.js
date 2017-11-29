@@ -1,6 +1,6 @@
 const auth = {
   id: null,
-  token: null,
+  jwt: null,
 };
 
 export default auth;
