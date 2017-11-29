@@ -21,7 +21,8 @@ const initialState = {
 
 export default function locationReducer(state = initialState, action) {
   if (action.type === LOCATION_GET) {
-    return Object.assign({}, state, action.payload);
+    const { payload } = state;
+    return { ...state, payload };
   } else if (action.type === LOCATION_SEND) {
     return { ...state, loading: true };
   } else if (action.type === GET_LOCATIONS_COMPLETE) {

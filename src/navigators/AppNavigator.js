@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation';
 
 // Containers
-import SplashContainer from '../containers/SplashContainer';
-import AuthContainer from '../containers/AuthContainer';
-import HomeContainer from '../containers/HomeContainer';
-import ProfileContainer from '../containers/ProfileContainer';
-import BroMapContainer from '../containers/BroMapContainer';
+import SplashContainer from 'containers/SplashContainer';
+import AuthContainer from 'containers/AuthContainer';
+import HomeContainer from 'containers/HomeContainer';
+import ProfileContainer from 'containers/ProfileContainer';
+import BroMapContainer from 'containers/BroMapContainer';
 
 export const AppNavigator = StackNavigator({
   Splash: { screen: SplashContainer },
@@ -18,9 +18,9 @@ export const AppNavigator = StackNavigator({
   BroMap: { screen: BroMapContainer },
 });
 
-const AppWithNavigationState = ({ dispatch, nav }) => (
-  <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
-);
+function AppWithNavigationState({ dispatch, nav }) {
+  return <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />;
+}
 
 AppWithNavigationState.propTypes = {
   dispatch: PropTypes.func.isRequired,

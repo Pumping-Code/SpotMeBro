@@ -1,5 +1,33 @@
 import React from 'react';
-import { Modal, View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { Modal, View, StyleSheet } from 'react-native';
+import { Text, Spinner } from 'native-base';
+
+function LoadingModal({
+  fetching, opacity, flavorText, animationType,
+}) {
+  return (
+    <Modal
+      animationType={animationType}
+      transparent
+      visible={fetching}
+    >
+      <View style={[styles.loadingModal, { opacity }]}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <Text style={{ color: '#FFF' }}>{flavorText}</Text>
+          <Spinner
+            color="#FFF"
+          />
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+LoadingModal.defaultProps = {
+  opacity: 0.5,
+  flavorText: 'Loading...',
+  animationType: 'none',
+};
 
 const styles = StyleSheet.create({
   loadingModal: {
@@ -10,30 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoadingModal = ({ fetching, opacity, flavorText, animationType }) => (
-  <Modal
-    animationType={animationType}
-    transparent
-    visible={fetching}
-  >
-    <View style={[styles.loadingModal, { opacity }]}>
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-        <Text style={{ color: '#FFF' }}>{flavorText}</Text>
-      </View>
-      <ActivityIndicator
-        animating
-        color={'#FFF'}
-        size={'large'}
-        style={{ flex: 1, justifyContent: 'flex-start' }}
-      />
-    </View>
-  </Modal>
-  );
-
-LoadingModal.defaultProps = {
-  opacity: 0.5,
-  flavorText: 'Loading...',
-  animationType: 'none',
-};
-
-export default LoadingModal;
+export { LoadingModal };

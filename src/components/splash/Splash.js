@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, AsyncStorage } from 'react-native';
+import { View } from 'react-native';
 import { Text, Content, Container } from 'native-base';
-import styles from 'styles/styles';
+import styles from 'styles';
 
 const quotes = [
   'The worst thing I can be is the same as everybody else. I hate that.',
@@ -34,7 +34,7 @@ class Splash extends Component {
     return (
       <Container>
         <Content>
-          <View style={styles.container}>
+          <View style={[styles.container, styles.alignCenter]}>
             <Text>{`"${this.state.quote}"`}</Text>
           </View>
         </Content>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile from 'components/profile/Profile';
-import BackButton from '../components/modules/BackButton';
 import * as actions from 'actions/userActions';
+import { BackButton } from 'components/modules';
 
-const ProfileContainer = props => (
-  <Profile {...props} />
-);
+function ProfileContainer(props) {
+  return <Profile {...props} />;
+}
 
 ProfileContainer.navigationOptions = ({ navigation }) => ({
   title: 'Brofile',
