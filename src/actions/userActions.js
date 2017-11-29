@@ -37,6 +37,8 @@ export const queryFacebookAPI = token => (dispatch) => {
     .then((resUser) => {
       const user = resUser.data;
       console.log('user from Facebook: ', user);
+      // Sets the unique FB id onto our auth service object
+      smbAuth.id = user.id;
 
       smbPush()
         .then((pushToken) => {
@@ -45,23 +47,23 @@ export const queryFacebookAPI = token => (dispatch) => {
           // Send user data to Spot Me Bro API
           smbApi({
             method: 'POST',
-            route: '/users',
+            route: '/auth',
             data: user,
           })
             .then((response) => {
-              console.log('user from api: ', response);
+              console.log('jwt from api: ', response);
+              // set json web token to auth service object
+              smbAuth.jwt = response.data.jwt;
+              AsyncStorage.setItem('jwt', response.data.jwt);
               dispatch({
                 type: SET_USER_TO_STATE,
-                user: response.data[0],
+                user: response.data,
               });
-              // Sets the unique FB id onto our auth service object
-              smbAuth.id = response.data[0].id;
-              smbAuth.token = token;
               // Send the user to the Home screen
               dispatch(NavigationActions.navigate({ routeName: 'Home' }));
             })
             .catch((error) => {
-              console.log(error);
+              console.log('login error:', error);
               dispatch({
                 type: FACEBOOK_LOGIN_ERROR,
                 error,
