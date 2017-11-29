@@ -32,14 +32,14 @@ export function locationSend() {
       route,
       data,
     })
-    .then((response) => {
+      .then((response) => {
       // route user to Bro Map
-      dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
-      // set locations to redux and set loading false
-      dispatch({
-        type: GET_LOCATIONS_COMPLETE,
-        userLocations: response.data,
+        dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
+        // set locations to redux and set loading false
+        dispatch({
+          type: GET_LOCATIONS_COMPLETE,
+          userLocations: response.data,
+        });
       });
-    });
   };
 }

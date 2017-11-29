@@ -2,14 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import BroMap from 'components/bro-map/BroMap';
 import * as actions from 'actions/locationActions';
+import { BackButton } from 'components/modules';
 
-const BroMapContainer = props => (
-  <BroMap {...props} />
-);
+function BroMapContainer(props) {
+  return <BroMap {...props} />;
+}
 
-BroMapContainer.navigationOptions = () => ({
+BroMapContainer.navigationOptions = ({ navigation }) => ({
   title: 'Bro Map',
-  headerLeft: null,
+  headerLeft: <BackButton onPress={() => navigation.goBack(null)} />,
 });
 
 const mapStateToProps = state => state;

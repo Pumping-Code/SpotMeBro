@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Platform, Text } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
-import { Container, Content, Footer, FooterTab, Button } from 'native-base';
-import LoadingModal from 'components/modules/LoadingModal';
+import { Container, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import { LoadingModal } from 'components/modules';
+import styles from 'styles';
 import SpotMe from 'components/home/SpotMe';
 
 class Home extends Component {
@@ -42,27 +43,40 @@ class Home extends Component {
   }
 
   render() {
-    const props = this.props;
-    const { navigate } = props.navigation;
+    const { props } = this;
+    const { navigate } = this.props.navigation;
 
-    let text = 'Waiting..';
+    let location = <Text>'Waiting...'</Text>;
     if (this.state.errorMessage) {
-      text = this.state.errorMessage;
+      location = (
+        <View style={{ paddingTop: 10 }}>
+          <Text>{this.state.errorMessage}</Text>
+        </View>
+      );
     } else if (this.state.location) {
-      text = JSON.stringify(this.state.location);
+      location = (
+        <View style={{ paddingTop: 10 }}>
+          <Text>Time: {this.state.location.timestamp}</Text>
+          <Text>Speed: {this.state.location.coords.speed}</Text>
+          <Text>Latitude: {this.state.location.coords.latitude}</Text>
+          <Text>Longitude: {this.state.location.coords.longitude}</Text>
+        </View>
+      );
     }
 
     return (
       <Container>
         <Content>
-          <LoadingModal
-            fetching={props.locationState.loading}
-            animationType={'slide'}
-            opacity={1}
-            flavorText={'Search for Bros near you...'}
-          />
-          <Text>{text}</Text>
-          <SpotMe />
+          <View style={styles.container}>
+            <LoadingModal
+              fetching={props.locationState.loading}
+              animationType="slide"
+              opacity={1}
+              flavorText="Searching for Bros near you..."
+            />
+            <SpotMe />
+            {location}
+          </View>
         </Content>
         <Footer>
           <FooterTab>

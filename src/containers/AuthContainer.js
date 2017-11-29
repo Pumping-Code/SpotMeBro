@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import Auth from 'components/auth/Auth';
 import * as actions from 'actions/userActions';
 
-const AuthContainer = props => (
-  <Auth {...props} />
-);
+function AuthContainer(props) {
+  return <Auth {...props} />;
+}
 
 AuthContainer.navigationOptions = () => ({
   title: 'Login',

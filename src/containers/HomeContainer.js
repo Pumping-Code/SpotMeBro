@@ -4,9 +4,9 @@ import Home from 'components/home/Home';
 import { getUsers } from 'actions/userActions';
 import * as actions from 'actions/locationActions';
 
-const HomeContainer = props => (
-  <Home {...props} />
-);
+function HomeContainer(props) {
+  return <Home {...props} />;
+}
 
 HomeContainer.navigationOptions = () => ({
   title: 'Spot Me Bro',

@@ -1,30 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { MapView } from 'expo';
-import styles from 'styles/styles';
+import styles from 'styles';
 
-class BroMap extends Component {
-  componentDidMount() {
-    console.log('mapview props: ', this.props);
-    // this.props.getUsers();
-  }
-
-  render() {
-    const props = this.props;
-
-    return (
+function BroMap(props) {
+  return (
+    <View>
       <View>
-        <View>
-          <MapView
-            style={styles.map}
-            initialRegion={{
+        <MapView
+          style={styles.map}
+          initialRegion={{
               latitude: props.locationState.coords.latitude,
               longitude: props.locationState.coords.longitude,
               latitudeDelta: 0.00922,
               longitudeDelta: 0.00421,
             }}
-          >
-            {
+        >
+          {
               props.locationState.userLocations.map(user => (
                 <MapView.Marker
                   key={user._id}
@@ -35,11 +27,10 @@ class BroMap extends Component {
                 />
               ))
             }
-          </MapView>
-        </View>
+        </MapView>
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 export default BroMap;
