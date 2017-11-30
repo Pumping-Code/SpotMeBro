@@ -1,4 +1,5 @@
 import smbApi from 'services/api';
+console.log(smbApi)
 import { NavigationActions } from 'react-navigation';
 
 export const LOCATION_GET = 'LOCATION_GET';
@@ -40,6 +41,9 @@ export function locationSend() {
           type: GET_LOCATIONS_COMPLETE,
           userLocations: response.data,
         });
+      })
+      .catch((err) => {
+        console.log('err in location actions', err);
       });
   };
 }
