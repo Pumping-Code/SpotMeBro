@@ -1,5 +1,4 @@
 import smbApi from 'services/api';
-console.log(smbApi)
 import { NavigationActions } from 'react-navigation';
 
 export const LOCATION_GET = 'LOCATION_GET';
