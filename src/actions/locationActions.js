@@ -40,6 +40,9 @@ export function locationSend() {
           type: GET_LOCATIONS_COMPLETE,
           userLocations: response.data,
         });
+      })
+      .catch((err) => {
+        console.log('err in location actions', err);
       });
   };
 }
