@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 
 export default async () => {
   const previousToken = await AsyncStorage.getItem('pushtoken');
-
   if (previousToken) { return; }
 
   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
