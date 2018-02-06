@@ -1,20 +1,18 @@
 import React from 'react';
 import { Button, Text } from 'native-base';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import * as actions from 'actions/locationActions';
+import styles from 'styles';
 
 function SpotMe(props) {
   return (
-    <Button full onPress={props.locationSend}>
-      <Text>I Need A Spot</Text>
+    <Button
+      full
+      onPress={props.locationSend}
+      style={styles.spotMeButton}
+    >
+      <Text>Spot Me Bro</Text>
     </Button>
   );
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(SpotMe);
+export default SpotMe;

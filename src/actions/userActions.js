@@ -16,6 +16,7 @@ export const LOG_USER_OUT = 'LOG_USER_OUT';
 // Users action types
 export const GET_USERS_START = 'GET_USERS_START';
 export const SET_USERS_TO_STATE = 'SET_USERS_TO_STATE';
+export const CHANGE_USER_FIELD = 'CHANGE_USER_FIELD';
 
 export const getUsers = () => (dispatch) => {
   // set loading state to true
@@ -33,9 +34,10 @@ export const getUsers = () => (dispatch) => {
 
 // Query the Facebook Graph API with the user access token
 export const queryFacebookAPI = token => (dispatch) => {
-  axios(`https://graph.facebook.com/me?access_token=${token}`)
+  axios(`https://graph.facebook.com/me?fields=id,name,picture.width(400)&access_token=${token}`)
     .then((resUser) => {
       const user = resUser.data;
+      const profilePic = user.picture.data.url;
       console.log('user from Facebook: ', user);
       // Sets the unique FB id onto our auth service object
       smbAuth.id = user.id;
@@ -55,12 +57,20 @@ export const queryFacebookAPI = token => (dispatch) => {
               // set json web token to auth service object
               smbAuth.jwt = response.data.jwt;
               AsyncStorage.setItem('jwt', response.data.jwt);
+              // Add profilePic url to user object
+              response.data.profilePic = profilePic;
               dispatch({
                 type: SET_USER_TO_STATE,
                 user: response.data,
               });
-              // Send the user to the Home screen
-              dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+
+              if (response.data.signupComplete) {
+                // Send the user to the Home screen
+                dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+              } else {
+                // Send the user to the sign up flow
+                dispatch(NavigationActions.navigate({ routeName: 'SupBro' }));
+              }
             })
             .catch((error) => {
               console.log('login error:', error);
@@ -138,3 +148,13 @@ export const logOut = () => (dispatch) => {
   AsyncStorage.removeItem('fb_token')
     .then(() => dispatch(NavigationActions.navigate({ routeName: 'Auth' })));
 };
+
+export function editUserField(field, value) {
+  return (dispatch) => {
+    dispatch({
+      type: CHANGE_USER_FIELD,
+      field,
+      value,
+    });
+  };
+}
