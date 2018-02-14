@@ -65,23 +65,23 @@ class Home extends Component {
     }
 
     return (
-      <Container>
+      <Container style={[styles.alignCenter, styles.home]}>
         <Content>
-          <View style={styles.container}>
-            <LoadingModal
-              fetching={props.locationState.loading}
-              animationType="slide"
-              opacity={1}
-              flavorText="Searching for Bros near you..."
-            />
-            <SpotMe />
-            {location}
-          </View>
+
+          <LoadingModal
+            fetching={props.locationState.loading}
+            animationType="slide"
+            opacity={1}
+            flavorText="Searching for Bros near you..."
+          />
+          <SpotMe {...this.props} />
+          {location}
+
         </Content>
         <Footer>
           <FooterTab>
             <Button full onPress={() => navigate('Profile')}>
-              <Text>Profile</Text>
+              <Text>Brofile</Text>
             </Button>
           </FooterTab>
         </Footer>

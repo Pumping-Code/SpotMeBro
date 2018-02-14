@@ -5,6 +5,7 @@ import {
   LOG_USER_OUT,
   GET_USERS_START,
   SET_USERS_TO_STATE,
+  CHANGE_USER_FIELD,
 } from 'actions/userActions';
 
 const initialState = {
@@ -12,6 +13,12 @@ const initialState = {
   loading: false,
   error: {},
   users: [],
+  signUp: {
+    heightFeet: '',
+    heightInches: '',
+    howBro: '',
+    favoriteLifts: [],
+  },
 };
 
 export default function userReducer(state = initialState, action) {
@@ -27,6 +34,14 @@ export default function userReducer(state = initialState, action) {
     return { ...state, loading: true };
   } else if (action.type === SET_USERS_TO_STATE) {
     return { ...state, loading: false, users: action.users };
+  } else if (action.type === CHANGE_USER_FIELD) {
+    return {
+      ...state,
+      signUp: {
+        ...state.signUp,
+        [action.field]: action.value,
+      },
+    };
   }
   return state;
 }

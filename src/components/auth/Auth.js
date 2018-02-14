@@ -12,7 +12,7 @@ function Auth(props) {
           full
           onPress={props.facebookLogin}
         >
-          <Text>Login</Text>
+          <Text>Login with Facebook</Text>
         </Button>
       </Content>
     </Container>

@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import { Font, Notifications } from 'expo';
 import { Provider } from 'react-redux';
-import { Root, Toast } from 'native-base';
+import { Toast, View, Text } from 'native-base';
+import styles from './src/styles/index';
 // import Reactotron from 'reactotron-react-native';
 import AppWithNavigationState from './src/navigators/AppNavigator';
 // import host from './host';
-import store from 'store';
+import store from './src/store';
 // import registerForPushNotificationsAsync from 'registerForPushNotificationsAsync';
 
 // Reactotron.configure({ host }).useReactNative();
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { fontLoaded: false };
+  }
+
   async componentWillMount() {
     await Font.loadAsync({
+      'anton-regular': require('./assets/fonts/Anton-Regular.ttf'),
       Ionicons: require('native-base/Fonts/Ionicons.ttf'),
     });
+    this.setState({ fontLoaded: true });
     // registerForPushNotificationsAsync();
 
     // Handle notifications that are received or selected while the app
@@ -39,17 +47,19 @@ class App extends Component {
     });
   }
 
-  // componentDidMount() {
-  //   Reactotron.connect();
-  // }
-
   render() {
-    return (
-      <Root>
+    if (this.state.fontLoaded) {
+      console.log('fonts loaded: ', this.state.fontLoaded);
+      return (
         <Provider store={store}>
           <AppWithNavigationState />
         </Provider>
-      </Root>
+      );
+    }
+    return (
+      <View style={styles.container}>
+        <Text>SMB Logo</Text>
+      </View>
     );
   }
 }
