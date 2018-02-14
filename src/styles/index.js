@@ -2,21 +2,22 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
 
-const red = '#d81532';
-const darkGrey = '#1a191c';
-const grey = '#393d3f';
-const black = '#071108';
-const blueGrey = '#364652';
+export const blueGrey = '#152c43';
+export const darkGrey = '#59687d';
+export const grey = '#8993a2';
+export const lightGreen = '#bddac8';
+export const offWhite = '#fcfaf9';
+
+export const primaryText = 'anton-regular';
 
 const styles = StyleSheet.create({
   // general styles
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: offWhite,
+  },
+  justifyCenter: {
     justifyContent: 'center',
-    height,
-    width,
-    padding: 5,
   },
   alignCenter: {
     alignItems: 'center',
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 100,
     alignSelf: 'center',
-    backgroundColor: red,
+    backgroundColor: lightGreen,
   },
 
 
@@ -49,6 +50,20 @@ const styles = StyleSheet.create({
   // Brofile
   profilePic: {
     alignSelf: 'flex-start',
+  },
+});
+
+export const buttonStyles = StyleSheet.create({
+  primary: {
+    backgroundColor: lightGreen,
+  },
+  primaryText: {
+    color: blueGrey,
+    fontFamily: primaryText,
+    fontSize: 20,
+  },
+  secondary: {
+    backgroundColor: grey,
   },
 });
 

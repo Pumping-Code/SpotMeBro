@@ -66,10 +66,10 @@ export const queryFacebookAPI = token => (dispatch) => {
 
               if (response.data.signupComplete) {
                 // Send the user to the Home screen
-                dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+                dispatch(NavigationActions.navigate({ routeName: 'App' }));
               } else {
                 // Send the user to the sign up flow
-                dispatch(NavigationActions.navigate({ routeName: 'SupBro' }));
+                dispatch(NavigationActions.navigate({ routeName: 'SignUp' }));
               }
             })
             .catch((error) => {
