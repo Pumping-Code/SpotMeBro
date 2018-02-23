@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Platform, View } from 'react-native';
+import { Platform, View, Dimensions } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
-import { Container, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import { Button, Text } from 'native-base';
 import { LoadingModal } from 'components/modules';
-import styles from 'styles';
+import styles, { offset } from 'styles';
 import SpotMe from 'components/home/SpotMe';
+import FlipView from '../modules/FlipView';
+
+const { height, width } = Dimensions.get('window');
 
 class Home extends Component {
   constructor(props) {
@@ -13,6 +16,7 @@ class Home extends Component {
     this.state = {
       location: null,
       errorMessage: null,
+      isFlipped: false,
     };
   }
 
@@ -65,8 +69,34 @@ class Home extends Component {
     }
 
     return (
-      <Container style={[styles.alignCenter, styles.home]}>
-        <Content>
+      <View style={styles.container}>
+        <View style={{ height: height - offset }}>
+          <FlipView
+            isFlipped={this.state.isFlipped}
+            containerStyle={{ height: height / 2 }}
+            frontStyles={{ width, height: height / 2 }}
+            backStyles={{ width, height: height / 2 }}
+            frontView={
+              <View style={{ flex: 1, backgroundColor: '#d7d7d7' }}>
+                <Button
+                  full
+                  onPress={props.locationSend}
+                  style={styles.spotMeButton}
+                >
+                  <Text>Spot Me Bro</Text>
+                </Button>
+              </View>
+            }
+            backView={
+              <View style={{ flex: 1, backgroundColor: '#d7d7d7' }}>
+                <Text style={{ fontFamily: 'anton-regular', textAlign: 'center', fontSize: 40 }}>Back Side</Text>
+              </View>
+            }
+          />
+          {location}
+          <Button onPress={() => this.setState({ isFlipped: !this.state.isFlipped })}>
+            <Text style={{ fontFamily: 'anton-regular' }}>Flip</Text>
+          </Button>
 
           <LoadingModal
             fetching={props.locationState.loading}
@@ -74,18 +104,8 @@ class Home extends Component {
             opacity={1}
             flavorText="Searching for Bros near you..."
           />
-          <SpotMe {...this.props} />
-          {location}
-
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full onPress={() => navigate('Profile')}>
-              <Text>Brofile</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+        </View>
+      </View>
     );
   }
 }

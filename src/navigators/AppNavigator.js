@@ -39,14 +39,14 @@ const TabNav = TabNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
-        const routeName = navigation.state;
+        const { routeName } = navigation.state;
         let iconName;
         if (routeName === 'Home') {
-          iconName = '';
+          iconName = 'md-home';
         } else if (routeName === 'Profile') {
-          iconName = '';
-        } else if (routeName === ' BroMap') {
-          iconName = '';
+          iconName = 'md-person';
+        } else if (routeName === 'BroMap') {
+          iconName = 'md-globe';
         }
         return <Icon name={iconName} style={{ color: tintColor }} />;
       },
@@ -81,9 +81,17 @@ export const AppNavigator = StackNavigator({
       header: null,
     }),
   },
-  Auth: { screen: AuthScreen },
+  Auth: {
+    screen: AuthScreen,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
   SignUp: {
     screen: signUpStack,
+    navigationOptions: () => ({
+      header: null,
+    }),
   },
   App: {
     screen: TabNav,

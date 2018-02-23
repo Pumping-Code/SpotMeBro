@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, Text, StyleSheet } from 'react-native';
+import { View, Dimensions, Text, StyleSheet, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from 'actions/userActions';
 import styles, { blueGrey, darkGrey, lightGreen, grey, offWhite, offset } from 'styles/index';
@@ -17,15 +17,18 @@ const quotes = [
   'I\'ll be back.',
 ];
 
-const splashStyle = StyleSheet.create({
-  bg: {
-    backgroundColor: blueGrey,
-    padding: 20,
-  },
+const splashStyles = StyleSheet.create({
   bigText: {
     fontSize: 40,
-    color: lightGreen,
+    color: blueGrey,
     fontFamily: 'anton-regular',
+    textAlign: 'center',
+  },
+  smallText: {
+    fontSize: 25,
+    color: darkGrey,
+    fontFamily: 'anton-regular',
+    textAlign: 'center',
   },
 });
 
@@ -41,7 +44,7 @@ class SplashScreen extends Component {
     // AsyncStorage.removeItem('fb_token');
     // Give the user some time to read the quote before performing
     // async task of checking for their access token.
-    // setTimeout(this.props.checkForToken, 1000);
+    setTimeout(this.props.checkForToken, 1000);
   }
 
   render() {
@@ -50,12 +53,11 @@ class SplashScreen extends Component {
         style={[
           styles.container,
           styles.justifyCenter,
-          splashStyle.bg,
         ]}
       >
         <View style={{ height: height - offset }}>
-          <Text style={{ fontSize: 40, color: lightGreen, fontFamily: 'anton-regular' }}>Spot Me Bro</Text>
-          <Text style={{ fontSize: 25, color: lightGreen }}>{`"${this.state.quote}"`}</Text>
+          <Text style={splashStyles.bigText}>Spot Me Bro</Text>
+          <Text style={splashStyles.smallText}>{`"${this.state.quote}"`}</Text>
         </View>
       </View>
     );

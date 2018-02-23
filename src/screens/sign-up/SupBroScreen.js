@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
 import { View, Text } from 'react-native';
 import { Button } from 'native-base';
 import { editUserField } from 'actions/userActions';
-import styles, { blueGrey, buttonStyles } from '../../styles/index';
+import styles, { blueGrey, buttonStyles, formStyles } from '../../styles/index';
 
 const feetOptions = [
   { key: 0, label: 'Feet', value: '' },
@@ -33,39 +33,56 @@ const inchOptions = [
   { key: 11, label: '11', value: '11' },
 ];
 
-function SupBroScreen(props) {
-  console.log('~~~~~~props', props);
-  return (
-    <View style={[styles.container, styles.justifyCenter, { padding: 20 }]}>
-      <View>
-        <Text style={{ fontFamily: 'anton-regular' }}>Sup, Bro. Tell us about yourself.</Text>
-      </View>
-      <View>
-        <Text>What is your height and weight?</Text>
-        <View style={{ flexDirection: 'row' }}>
+class SupBroScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flip: false,
+    };
+  }
+
+  render() {
+    const { props } = this;
+    return (
+      <View style={[styles.container, styles.justifyCenter, { padding: 20 }]}>
+        <View>
+          <Text style={{ fontFamily: 'anton-regular', fontSize: 40, color: blueGrey }}>Sup, Bro. Tell us about yourself.</Text>
+        </View>
+        <View>
+          <Text>What is your height and weight?</Text>
+
           <RNPickerSelect
             placeholder="Feet"
             items={feetOptions}
             value={props.signUp.heightFeet}
             onSelect={value => props.editUserField('heightFeet', value)}
+            style={{
+              inputIOS: formStyles.textInput,
+              icon: { top: 22, right: 16 },
+            }}
           />
           <RNPickerSelect
             placeholder="Inches"
-            items={feetOptions}
+            items={inchOptions}
             value={props.signUp.heightInches}
             onSelect={value => props.editUserField('heightInches', value)}
+            style={{
+              inputIOS: formStyles.textInput,
+              icon: { top: 22, right: 16 },
+            }}
           />
+
+          <Button
+            style={buttonStyles.primary}
+            full
+            onPress={() => props.navigation.navigate('HowBro')}
+          >
+            <Text style={[buttonStyles.primaryText]}>Next</Text>
+          </Button>
         </View>
-        <Button
-          style={buttonStyles.primary}
-          full
-          onPress={() => props.navigation.navigate('HowBro')}
-        >
-          <Text style={[buttonStyles.primaryText]}>Next</Text>
-        </Button>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 SupBroScreen.navigationOptions = {
