@@ -15,7 +15,7 @@ import { Icon } from 'native-base';
 
 // Screens
 import SplashScreen from '../screens/SplashScreen';
-import AuthScreen from '../screens/AuthScreen';
+// import AuthScreen from '../screens/AuthScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import BroMapScreen from '../screens/BroMapScreen';
@@ -81,12 +81,12 @@ export const AppNavigator = StackNavigator({
       header: null,
     }),
   },
-  Auth: {
-    screen: AuthScreen,
-    navigationOptions: () => ({
-      header: null,
-    }),
-  },
+  // Auth: {
+  //   screen: AuthScreen,
+  //   navigationOptions: () => ({
+  //     header: null,
+  //   }),
+  // },
   SignUp: {
     screen: signUpStack,
     navigationOptions: () => ({

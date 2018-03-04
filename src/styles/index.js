@@ -21,6 +21,7 @@ export const offWhite = '#fcfaf9';
 export const textColor = blueGrey;
 
 export const primaryText = 'anton-regular';
+export const secondaryText = 'open-sans-regular';
 
 const styles = StyleSheet.create({
   // general styles
@@ -75,7 +76,7 @@ export const formStyles = StyleSheet.create({
     borderRadius: 2,
     paddingHorizontal: 10,
     fontSize: 20,
-    fontFamily: primaryText,
+    fontFamily: secondaryText,
     marginBottom: 5,
   },
 });

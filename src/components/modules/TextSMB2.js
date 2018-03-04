@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { textColor } from '../../styles/index';
 
-class TextSMB extends Component {
+class TextSMB2 extends Component {
   constructor(props) {
     super(props);
-    this.style = [{ color: textColor, fontFamily: 'anton-regular' }];
+    this.style = [{ color: textColor, fontFamily: 'open-sans-regular' }];
     if (props.style) {
       if (Array.isArray(props.style)) {
         this.style = this.style.concat(props.style);
@@ -25,7 +25,7 @@ class TextSMB extends Component {
   }
 }
 
-TextSMB.propTypes = {
+TextSMB2.propTypes = {
   style: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.object,
@@ -33,8 +33,8 @@ TextSMB.propTypes = {
   ]),
 };
 
-TextSMB.defaultProps = {
+TextSMB2.defaultProps = {
   style: null,
 };
 
-export default TextSMB;
+export default TextSMB2;

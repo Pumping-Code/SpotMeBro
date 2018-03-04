@@ -6,7 +6,6 @@ import { Button, Text } from 'native-base';
 import { LoadingModal } from 'components/modules';
 import styles, { offset } from 'styles';
 import SpotMe from 'components/home/SpotMe';
-import FlipView from '../modules/FlipView';
 
 const { height, width } = Dimensions.get('window');
 
@@ -71,28 +70,17 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <View style={{ height: height - offset }}>
-          <FlipView
-            isFlipped={this.state.isFlipped}
-            containerStyle={{ height: height / 2 }}
-            frontStyles={{ width, height: height / 2 }}
-            backStyles={{ width, height: height / 2 }}
-            frontView={
-              <View style={{ flex: 1, backgroundColor: '#d7d7d7' }}>
-                <Button
-                  full
-                  onPress={props.locationSend}
-                  style={styles.spotMeButton}
-                >
-                  <Text>Spot Me Bro</Text>
-                </Button>
-              </View>
-            }
-            backView={
-              <View style={{ flex: 1, backgroundColor: '#d7d7d7' }}>
-                <Text style={{ fontFamily: 'anton-regular', textAlign: 'center', fontSize: 40 }}>Back Side</Text>
-              </View>
-            }
-          />
+
+          <View style={{ flex: 1, backgroundColor: '#d7d7d7' }}>
+            <Button
+              full
+              onPress={props.locationSend}
+              style={styles.spotMeButton}
+            >
+              <Text>Spot Me Bro</Text>
+            </Button>
+          </View>
+
           {location}
           <Button onPress={() => this.setState({ isFlipped: !this.state.isFlipped })}>
             <Text style={{ fontFamily: 'anton-regular' }}>Flip</Text>

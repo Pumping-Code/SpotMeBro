@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Animated, Easing, StyleSheet, Text } from 'react-native';
+import { View, Animated, Easing, Text, ViewPropTypes } from 'react-native';
 
-class FlipView extends Component {
+class FlipComponent extends Component {
   static propTypes = {
     isFlipped: PropTypes.bool.isRequired,
     frontView: PropTypes.element.isRequired,
@@ -12,6 +12,9 @@ class FlipView extends Component {
     backPerspective: PropTypes.number,
     scaleDuration: PropTypes.number,
     rotateDuration: PropTypes.number,
+    containerStyles: ViewPropTypes.style,
+    frontStyles: ViewPropTypes.style,
+    backStyles: ViewPropTypes.style,
   };
 
   static defaultProps = {
@@ -20,7 +23,7 @@ class FlipView extends Component {
     backPerspective: 1000,
     scaleDuration: 100,
     rotateDuration: 300,
-    containerStyle: { flex: 1 },
+    containerStyles: null,
     frontStyles: null,
     backStyles: null,
   };
@@ -86,7 +89,7 @@ class FlipView extends Component {
     const backAnimatedStyle = { rotateY: this.backInterpolate };
     const scaleAnimatedStyle = { scale: this.scaleInterpolate };
     return (
-        <View style={this.props.containerStyle}>
+        <View style={this.props.containerStyles}>
           <Animated.View
             style={[
               {
@@ -99,6 +102,7 @@ class FlipView extends Component {
               },
               this.props.frontStyles,
             ]}
+            pointerEvents={this.props.isFlipped ? 'none' : 'auto'}
           >
             {this.props.frontView}
           </Animated.View>
@@ -115,6 +119,7 @@ class FlipView extends Component {
               },
               this.props.backStyles,
             ]}
+            pointerEvents={this.props.isFlipped ? 'auto' : 'none'}
           >
             {this.props.backView}
           </Animated.View>
@@ -123,4 +128,4 @@ class FlipView extends Component {
   }
 }
 
-export default FlipView;
+export default FlipComponent;
