@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { View, Dimensions, Modal } from 'react-native';
 import { Button, Text } from 'native-base';
 import TextSMB from 'components/modules/TextSMB';
+import TextSMB2 from 'components/modules/TextSMB2';
 import LoadingModal from 'components/modules/LoadingModal';
-import styles, { offset } from 'styles';
+import styles, { buttonStyles, blueGrey, darkGrey, lightGreen, offset } from 'styles';
 
 const { height, width } = Dimensions.get('window');
 
@@ -41,12 +42,19 @@ class Home extends Component {
             transparent={false}
             visible={this.props.locationPermission === 'undetermined'}
           >
-            <View>
+            <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
+              <TextSMB style={{ fontSize: 25 }}>
+                Bro,
+              </TextSMB>
+              <TextSMB2 style={{ fontSize: 18, marginBottom: 10 }}>
+                We need access to your location so we can get you spots from other Bros.
+              </TextSMB2>
               <Button
                 full
                 onPress={props.askUserLocationPermission}
+                style={buttonStyles.primary}
               >
-                <TextSMB>Sounds Good</TextSMB>
+                <TextSMB style={buttonStyles.primaryText}>Got it</TextSMB>
               </Button>
             </View>
           </Modal>

@@ -36,7 +36,7 @@ class SplashScreen extends Component {
   }
 
   componentWillMount() {
-    AsyncStorage.removeItem('fb_token');
+    // AsyncStorage.removeItem('fb_token');
     // async task of checking for their access token
     // and location permission
     this.props.checkForToken();

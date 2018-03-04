@@ -112,9 +112,6 @@ export function checkLocationPermission() {
           if (response.status === 'granted') {
             // if granted, get the user's location
             watchUserLocation()(dispatch);
-          } else {
-            // ask the user for permission
-            askUserLocationPermission()(dispatch);
           }
         });
     }
