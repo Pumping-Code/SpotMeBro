@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FlipComponent from 'react-native-flip-component';
 import RNPickerSelect from 'react-native-picker-select';
-import { View, Text } from 'react-native';
+import { View, Dimensions, TextInput } from 'react-native';
 import { Button } from 'native-base';
 import { editUserField } from 'actions/userActions';
-import styles, { blueGrey, buttonStyles } from '../../styles/index';
+import TextSMB from '../../components/modules/TextSMB';
+import TextSMB2 from '../../components/modules/TextSMB2';
+import styles, { blueGrey, buttonStyles, formStyles } from '../../styles/index';
 
 const feetOptions = [
   { key: 0, label: 'Feet', value: '' },
@@ -33,39 +36,111 @@ const inchOptions = [
   { key: 11, label: '11', value: '11' },
 ];
 
-function SupBroScreen(props) {
-  console.log('~~~~~~props', props);
-  return (
-    <View style={[styles.container, styles.justifyCenter, { padding: 20 }]}>
-      <View>
-        <Text style={{ fontFamily: 'anton-regular' }}>Sup, Bro. Tell us about yourself.</Text>
-      </View>
-      <View>
-        <Text>What is your height and weight?</Text>
-        <View style={{ flexDirection: 'row' }}>
-          <RNPickerSelect
-            placeholder="Feet"
-            items={feetOptions}
-            value={props.signUp.heightFeet}
-            onSelect={value => props.editUserField('heightFeet', value)}
-          />
-          <RNPickerSelect
-            placeholder="Inches"
-            items={feetOptions}
-            value={props.signUp.heightInches}
-            onSelect={value => props.editUserField('heightInches', value)}
-          />
+const { height, width } = Dimensions.get('window');
+
+class SupBroScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFlipped: false,
+    };
+    this.flip = this.flip.bind(this);
+  }
+
+  flip() {
+    this.setState({ isFlipped: !this.state.isFlipped });
+  }
+
+  render() {
+    return (
+      <View style={[styles.container, styles.justifyCenter, { padding: 20 }]}>
+        <View>
+          <TextSMB style={{ fontSize: 80, color: blueGrey, textAlign: 'center' }}>SUP, BRO</TextSMB>
+          <TextSMB2 style={{ fontSize: 25, color: blueGrey, textAlign: 'center' }}>Tell us about yourself.</TextSMB2>
         </View>
-        <Button
-          style={buttonStyles.primary}
-          full
-          onPress={() => props.navigation.navigate('HowBro')}
-        >
-          <Text style={[buttonStyles.primaryText]}>Next</Text>
-        </Button>
+        <FlipComponent
+          isFlipped={this.state.isFlipped}
+          containerStyles={{ marginTop: 30 }}
+          backStyles={{ width: width - 40 }}
+          frontView={
+            <View>
+              <TextSMB style={{ fontSize: 25 }}>Height:</TextSMB>
+              <RNPickerSelect
+                placeholder={{}}
+                items={feetOptions}
+                value={this.props.signUp.heightFeet}
+                onSelect={value => this.props.editUserField('heightFeet', value.value)}
+                style={{
+                  inputIOS: formStyles.textInput,
+                  icon: { top: 22, right: 16 },
+                }}
+              />
+              <RNPickerSelect
+                placeholder={{}}
+                items={inchOptions}
+                value={this.props.signUp.heightInches}
+                onSelect={value => this.props.editUserField('heightInches', value.value)}
+                style={{
+                  inputIOS: formStyles.textInput,
+                  icon: { top: 22, right: 16 },
+                }}
+              />
+              <TextSMB style={{ fontSize: 25 }}>Weight:</TextSMB>
+              <TextInput
+                style={formStyles.textInput}
+                returnKeyType="done"
+                keyboardType="numeric"
+                onChangeText={text => this.props.editUserField('weight', text)}
+              />
+              <Button
+                style={buttonStyles.primary}
+                full
+                onPress={this.flip}
+              >
+                <TextSMB style={[buttonStyles.primaryText]}>Next</TextSMB>
+              </Button>
+            </View>
+          }
+          backView={
+            <View>
+              <TextSMB style={{ fontSize: 25 }}>Bench</TextSMB>
+              <TextInput
+                style={formStyles.textInput}
+                returnKeyType="done"
+                keyboardType="numeric"
+                onChangeText={text => this.props.editUserField('maxBench', text)}
+              />
+
+              <TextSMB style={{ fontSize: 25 }}>Squat</TextSMB>
+              <TextInput
+                style={formStyles.textInput}
+                returnKeyType="done"
+                keyboardType="numeric"
+                onChangeText={text => this.props.editUserField('maxSquat', text)}
+              />
+
+              <Button
+                disabled={!this.state.isFlipped}
+                style={buttonStyles.secondary}
+                full
+                onPress={this.flip}
+              >
+                <TextSMB style={[buttonStyles.primaryText]}>Back</TextSMB>
+              </Button>
+              <Button
+                disabled={!this.state.isFlipped}
+                style={buttonStyles.primary}
+                full
+                onPress={() => this.props.navigation.navigate('HowBro')}
+              >
+                <TextSMB style={[buttonStyles.primaryText]}>Next</TextSMB>
+              </Button>
+            </View>
+          }
+        />
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 SupBroScreen.navigationOptions = {
@@ -73,9 +148,11 @@ SupBroScreen.navigationOptions = {
 };
 
 SupBroScreen.propTypes = {
-  user: PropTypes.shape({
+  signUp: PropTypes.shape({
     heightFeet: PropTypes.string,
     heightInches: PropTypes.string,
+    maxBench: PropTypes.string,
+    maxSquat: PropTypes.string,
   }).isRequired,
   editUserField: PropTypes.func.isRequired,
 };

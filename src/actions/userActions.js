@@ -8,6 +8,8 @@ import smbAuth from 'services/auth';
 import smbPush from 'services/push';
 
 // Authentication action types
+export const CHECK_ASYNCSTORAGE_FOR_TOKEN = 'CHECK_ASYNCSTORAGE_FOR_TOKEN';
+export const NO_ASYNCSTORAGE_TOKEN_FOUND = 'NO_ASYNCSTORAGE_TOKEN_FOUND';
 export const FACEBOOK_LOGIN_START = 'FACEBOOK_LOGIN_START';
 export const SET_USER_TO_STATE = 'SET_USER_TO_STATE';
 export const FACEBOOK_LOGIN_ERROR = 'FACEBOOK_LOGIN_ERROR';
@@ -97,19 +99,24 @@ export const queryFacebookAPI = token => (dispatch) => {
 };
 
 export const checkForToken = () => (dispatch) => {
+  dispatch({ type: CHECK_ASYNCSTORAGE_FOR_TOKEN });
   AsyncStorage.getItem('fb_token')
     .then((token) => {
-      if (token === null) {
-      // send user the login screen
-        dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
-      } else {
+      console.log('fb_token: ', token);
+      if (token !== null) {
         queryFacebookAPI(token)(dispatch);
+      } else {
+        dispatch({ type: NO_ASYNCSTORAGE_TOKEN_FOUND });
       }
+      // else {
+      //   // send user the login screen
+      //   // dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
+      // }
     })
     .catch((error) => {
-      console.log(error);
+      console.log('Error checking AsyncStorage for fb_token: ', error);
       // send user the login screen
-      dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
+      // dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
     });
 };
 
@@ -123,13 +130,11 @@ export const facebookLogin = () => (dispatch) => {
   })
     .then((response) => {
       if (response.type === 'cancel') {
-        console.log('~~~~~~', response);
         dispatch({
           type: FACEBOOK_LOGIN_ERROR,
           error: response,
         });
       } else {
-        console.log('~~~~~~', response);
         AsyncStorage.setItem('fb_token', response.token);
         queryFacebookAPI(response.token)(dispatch);
       }
@@ -151,6 +156,7 @@ export const logOut = () => (dispatch) => {
 
 export function editUserField(field, value) {
   return (dispatch) => {
+    console.log(value);
     dispatch({
       type: CHANGE_USER_FIELD,
       field,

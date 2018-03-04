@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, Text, StyleSheet } from 'react-native';
+import { View, Dimensions, StyleSheet, AsyncStorage } from 'react-native';
+import { Button } from 'native-base';
 import { connect } from 'react-redux';
 import * as actions from 'actions/userActions';
-import styles, { blueGrey, darkGrey, lightGreen, grey, offWhite, offset } from 'styles/index';
+import {
+  checkLocationPermission,
+  askUserLocationPermission,
+  setUserLocation,
+} from 'actions/locationActions';
+import TextSMB from '../components/modules/TextSMB';
+import styles, { buttonStyles, blueGrey, darkGrey, lightGreen, grey, offWhite, offset } from 'styles/index';
 
 const { height } = Dimensions.get('window');
 const quotes = [
@@ -17,15 +24,16 @@ const quotes = [
   'I\'ll be back.',
 ];
 
-const splashStyle = StyleSheet.create({
-  bg: {
-    backgroundColor: blueGrey,
-    padding: 20,
-  },
+const splashStyles = StyleSheet.create({
   bigText: {
     fontSize: 40,
-    color: lightGreen,
-    fontFamily: 'anton-regular',
+    color: blueGrey,
+    textAlign: 'center',
+  },
+  smallText: {
+    fontSize: 25,
+    color: darkGrey,
+    textAlign: 'center',
   },
 });
 
@@ -37,26 +45,52 @@ class SplashScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // AsyncStorage.removeItem('fb_token');
-    // Give the user some time to read the quote before performing
-    // async task of checking for their access token.
-    // setTimeout(this.props.checkForToken, 1000);
+    // async task of checking for their access token
+    // and location permission
+
+    this.props.checkForToken();
+    // this.props.checkLocationPermission();
   }
 
   render() {
+    let content;
+
+    if (!this.props.loading && !Object.keys(this.props.user).length) {
+      content = (
+        <View>
+          <Button
+            style={buttonStyles.primary}
+            full
+            onPress={this.props.facebookLogin}
+          >
+            <TextSMB style={buttonStyles.primaryText}>Login</TextSMB>
+          </Button>
+          <Button
+            style={buttonStyles.secondary}
+            full
+            onPress={this.props.facebookLogin}
+          >
+            <TextSMB style={buttonStyles.secondaryText}>Sign up with Facebook</TextSMB>
+          </Button>
+        </View>
+      );
+    }
+
     return (
       <View
         style={[
           styles.container,
           styles.justifyCenter,
-          splashStyle.bg,
+          { padding: 20 },
         ]}
       >
         <View style={{ height: height - offset }}>
-          <Text style={{ fontSize: 40, color: lightGreen, fontFamily: 'anton-regular' }}>Spot Me Bro</Text>
-          <Text style={{ fontSize: 25, color: lightGreen }}>{`"${this.state.quote}"`}</Text>
+          <TextSMB style={splashStyles.bigText}>Spot Me Bro</TextSMB>
+          <TextSMB style={splashStyles.smallText}>{`"${this.state.quote}"`}</TextSMB>
         </View>
+        {content}
       </View>
     );
   }
@@ -64,10 +98,19 @@ class SplashScreen extends Component {
 
 SplashScreen.propTypes = {
   checkForToken: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  ...state.userReducer,
+  ...state.userState,
 });
 
-export default connect(mapStateToProps, actions)(SplashScreen);
+export default connect(
+  mapStateToProps,
+  {
+    ...actions,
+    setUserLocation,
+    checkLocationPermission,
+    askUserLocationPermission,
+  },
+)(SplashScreen);

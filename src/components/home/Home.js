@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Platform, View } from 'react-native';
+import { Platform, View, Dimensions } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
-import { Container, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import { Button, Text } from 'native-base';
 import { LoadingModal } from 'components/modules';
-import styles from 'styles';
+import styles, { offset } from 'styles';
 import SpotMe from 'components/home/SpotMe';
+
+const { height, width } = Dimensions.get('window');
 
 class Home extends Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class Home extends Component {
     this.state = {
       location: null,
       errorMessage: null,
+      isFlipped: false,
     };
   }
 
@@ -65,27 +68,24 @@ class Home extends Component {
     }
 
     return (
-      <Container style={[styles.alignCenter, styles.home]}>
-        <Content>
-
+      <View style={styles.container}>
+        <View style={{ height: height - offset }}>
+          <Button
+            full
+            onPress={props.locationSend}
+            style={styles.spotMeButton}
+          >
+            <Text>Spot Me Bro</Text>
+          </Button>
+          {location}
           <LoadingModal
             fetching={props.locationState.loading}
             animationType="slide"
             opacity={1}
             flavorText="Searching for Bros near you..."
           />
-          <SpotMe {...this.props} />
-          {location}
-
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full onPress={() => navigate('Profile')}>
-              <Text>Brofile</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+        </View>
+      </View>
     );
   }
 }

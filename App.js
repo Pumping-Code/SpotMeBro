@@ -20,6 +20,12 @@ class App extends Component {
   async componentWillMount() {
     await Font.loadAsync({
       'anton-regular': require('./assets/fonts/Anton-Regular.ttf'),
+      'open-sans-regular': require('./assets/fonts/OpenSans-Regular.ttf'),
+      'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+      'open-sans-bold-italic': require('./assets/fonts/OpenSans-BoldItalic.ttf'),
+      'open-sans-light': require('./assets/fonts/OpenSans-Light.ttf'),
+      'open-sans-light-italic': require('./assets/fonts/OpenSans-LightItalic.ttf'),
+      'open-sans-italic': require('./assets/fonts/OpenSans-Italic.ttf'),
       Ionicons: require('native-base/Fonts/Ionicons.ttf'),
     });
     this.setState({ fontLoaded: true });

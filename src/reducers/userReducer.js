@@ -1,4 +1,6 @@
 import {
+  CHECK_ASYNCSTORAGE_FOR_TOKEN,
+  NO_ASYNCSTORAGE_TOKEN_FOUND,
   FACEBOOK_LOGIN_START,
   FACEBOOK_LOGIN_ERROR,
   SET_USER_TO_STATE,
@@ -16,13 +18,19 @@ const initialState = {
   signUp: {
     heightFeet: '',
     heightInches: '',
+    weight: '',
+    benchMax: '',
+    squatMax: '',
     howBro: '',
-    favoriteLifts: [],
   },
 };
 
 export default function userReducer(state = initialState, action) {
-  if (action.type === FACEBOOK_LOGIN_START) {
+  if (action.type === CHECK_ASYNCSTORAGE_FOR_TOKEN) {
+    return { ...state, loading: true };
+  } else if (action.type === NO_ASYNCSTORAGE_TOKEN_FOUND) {
+    return { ...state, loading: false };
+  } else if (action.type === FACEBOOK_LOGIN_START) {
     return { ...state, loading: true };
   } else if (action.type === FACEBOOK_LOGIN_ERROR) {
     return { ...state, loading: false, error: action.error };
