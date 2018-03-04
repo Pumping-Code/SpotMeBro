@@ -1,5 +1,4 @@
 import {
-  LOCATION_GET,
   LOCATION_SEND,
   GET_LOCATIONS_COMPLETE,
   CHECK_LOCATION_START,
@@ -11,39 +10,42 @@ import {
 
 const initialState = {
   locationPermission: '',
-
   coords: {
-    speed: null,
+    speed: 'null',
     latitude: 30.2672,
     longitude: -97.7431,
-    accuracy: null,
-    heading: null,
-    altitude: null,
-    altitudeAccuracy: null,
+    accuracy: 'null',
+    heading: 'null',
+    altitude: 'null',
+    altitudeAccuracy: 'null',
   },
-  timestamp: null,
+  timestamp: 'null',
   loading: false,
+  fetchingLocation: false,
   userLocations: [],
+  errorMessage: '',
 };
 
 export default function locationReducer(state = initialState, action) {
   if (action.type === CHECK_LOCATION_START) {
     return { ...state, loading: true };
-  } else if (CHECK_LOCATION_COMPLETE) {
+  } else if (action.type === CHECK_LOCATION_COMPLETE) {
     return {
       ...state,
       loading: false,
       locationPermission: action.locationPermission,
     };
-  } else if (GET_USER_LOCATION) {
-    return { ...state };
-  } else if (SET_USER_LOCATION) {
-    return { ...state };
-  } else if (USER_LOCATION_ERROR) {
-    return { ...state };
-  } else if (action.type === LOCATION_GET) {
-    const { coords, timestamp } = action.payload;
-    return { ...state, coords, timestamp };
+  } else if (action.type === GET_USER_LOCATION) {
+    return { ...state, fetchingLocation: true };
+  } else if (action.type === SET_USER_LOCATION) {
+    return {
+      ...state,
+      coords: action.coords,
+      timestamp: action.timestamp,
+      fetchingLocation: false,
+    };
+  } else if (action.type === USER_LOCATION_ERROR) {
+    return { ...state, errorMessage: action.errorMessage };
   } else if (action.type === LOCATION_SEND) {
     return { ...state, loading: true };
   } else if (action.type === GET_LOCATIONS_COMPLETE) {

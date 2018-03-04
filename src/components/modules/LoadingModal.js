@@ -2,9 +2,22 @@ import React from 'react';
 import { Modal, View, StyleSheet } from 'react-native';
 import { Text, Spinner } from 'native-base';
 
-function LoadingModal({
-  fetching, opacity, flavorText, animationType,
-}) {
+const styles = StyleSheet.create({
+  loadingModal: {
+    backgroundColor: '#000',
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 22,
+  },
+});
+
+function LoadingModal(props) {
+  const {
+    fetching,
+    opacity,
+    flavorText,
+    animationType,
+  } = props;
   return (
     <Modal
       animationType={animationType}
@@ -29,13 +42,4 @@ LoadingModal.defaultProps = {
   animationType: 'none',
 };
 
-const styles = StyleSheet.create({
-  loadingModal: {
-    backgroundColor: '#000',
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 22,
-  },
-});
-
-export { LoadingModal };
+export default LoadingModal;

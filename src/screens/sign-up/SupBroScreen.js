@@ -121,7 +121,7 @@ class SupBroScreen extends Component {
 
               <Button
                 disabled={!this.state.isFlipped}
-                style={buttonStyles.secondary}
+                style={[buttonStyles.secondary, { marginVertical: 10 }]}
                 full
                 onPress={this.flip}
               >

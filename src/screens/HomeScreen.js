@@ -13,6 +13,8 @@ HomeContainer.navigationOptions = () => ({
   headerLeft: null,
 });
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({
+  ...state.locationState,
+});
 
 export default connect(mapStateToProps, { ...actions, getUsers })(HomeContainer);
