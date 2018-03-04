@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Font, Notifications } from 'expo';
 import { Provider } from 'react-redux';
-import { Toast, View, Text } from 'native-base';
+import { View, Image, ActivityIndicator } from 'react-native';
+import { Toast } from 'native-base';
 import styles, { blueGrey, darkGrey, grey, lightGreen, offWhite } from './src/styles/index';
 // import Reactotron from 'reactotron-react-native';
 import AppWithNavigationState from './src/navigators/AppNavigator';
@@ -21,11 +22,11 @@ class App extends Component {
     await Font.loadAsync({
       'anton-regular': require('./assets/fonts/Anton-Regular.ttf'),
       'open-sans-regular': require('./assets/fonts/OpenSans-Regular.ttf'),
-      'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-      'open-sans-bold-italic': require('./assets/fonts/OpenSans-BoldItalic.ttf'),
-      'open-sans-light': require('./assets/fonts/OpenSans-Light.ttf'),
-      'open-sans-light-italic': require('./assets/fonts/OpenSans-LightItalic.ttf'),
-      'open-sans-italic': require('./assets/fonts/OpenSans-Italic.ttf'),
+      // 'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+      // 'open-sans-bold-italic': require('./assets/fonts/OpenSans-BoldItalic.ttf'),
+      // 'open-sans-light': require('./assets/fonts/OpenSans-Light.ttf'),
+      // 'open-sans-light-italic': require('./assets/fonts/OpenSans-LightItalic.ttf'),
+      // 'open-sans-italic': require('./assets/fonts/OpenSans-Italic.ttf'),
       Ionicons: require('native-base/Fonts/Ionicons.ttf'),
     });
     this.setState({ fontLoaded: true });
@@ -63,13 +64,16 @@ class App extends Component {
       );
     }
     return (
-      <View style={[styles.container, styles.justifyCenter]}>
-        <Text style={{ textAlign: 'center', fontSize: 35, color: darkGrey }}>
-          SPOT ME
-        </Text>
-        <Text style={{ textAlign: 'center', fontSize: 80, color: blueGrey }}>
-          BRO
-        </Text>
+      <View style={[styles.container, styles.justifyCenter, { alignItems: 'center' }]}>
+        <Image
+          style={{ height: 200, width: 200, marginBottom: 50 }}
+          source={require('./assets/images/smb-icon.png')}
+        />
+        <ActivityIndicator
+          animating
+          color={blueGrey}
+          size="large"
+        />
       </View>
     );
   }
