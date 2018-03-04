@@ -5,4 +5,18 @@
   "packagerOpts": {
     "assetExts": ["ttf"]
   },
+  "name": "Spot Me Bro",
+  "description": "For when a Bro needs a spot",
+  "slug": "spot-me-bro",
+  "privacy": "unlisted",
+  "orientation": "portrait",
+  "icon": "./assets/images/smb-icon.png",
+  "splash": {
+    "image": "./assets/images/smb-splash.png",
+    "backgroundColor": "#fcfaf9",
+    "hideExponentText": true,
+    "resizeMode": "contain"
+  },
+  "facebookAppId": "667138290125485",
+  "facebookDisplayName": "Spot Me Bro"
 }

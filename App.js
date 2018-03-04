@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Font, Notifications } from 'expo';
 import { Provider } from 'react-redux';
 import { Toast, View, Text } from 'native-base';
-import styles from './src/styles/index';
+import styles, { blueGrey, darkGrey, grey, lightGreen, offWhite } from './src/styles/index';
 // import Reactotron from 'reactotron-react-native';
 import AppWithNavigationState from './src/navigators/AppNavigator';
 // import host from './host';
@@ -63,8 +63,13 @@ class App extends Component {
       );
     }
     return (
-      <View style={styles.container}>
-        <Text>SMB Logo</Text>
+      <View style={[styles.container, styles.justifyCenter]}>
+        <Text style={{ textAlign: 'center', fontSize: 35, color: darkGrey }}>
+          SPOT ME
+        </Text>
+        <Text style={{ textAlign: 'center', fontSize: 80, color: blueGrey }}>
+          BRO
+        </Text>
       </View>
     );
   }
