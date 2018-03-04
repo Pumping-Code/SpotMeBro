@@ -70,22 +70,14 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <View style={{ height: height - offset }}>
-
-          <View style={{ flex: 1, backgroundColor: '#d7d7d7' }}>
-            <Button
-              full
-              onPress={props.locationSend}
-              style={styles.spotMeButton}
-            >
-              <Text>Spot Me Bro</Text>
-            </Button>
-          </View>
-
-          {location}
-          <Button onPress={() => this.setState({ isFlipped: !this.state.isFlipped })}>
-            <Text style={{ fontFamily: 'anton-regular' }}>Flip</Text>
+          <Button
+            full
+            onPress={props.locationSend}
+            style={styles.spotMeButton}
+          >
+            <Text>Spot Me Bro</Text>
           </Button>
-
+          {location}
           <LoadingModal
             fetching={props.locationState.loading}
             animationType="slide"
