@@ -45,14 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: blueGrey,
   },
 
-  spotMeButton: {
-    height: 200,
-    width: 200,
-    borderRadius: 100,
-    alignSelf: 'center',
-    backgroundColor: lightGreen,
-  },
-
   // BroMap
   map: {
     height,
@@ -97,6 +89,17 @@ export const buttonStyles = StyleSheet.create({
     color: offWhite,
     fontFamily: primaryText,
     fontSize: 20,
+  },
+  spotMeButton: {
+    height: 300,
+    width: 300,
+    borderRadius: 150,
+    borderWidth: 7,
+    borderColor: lightGreen,
+    alignSelf: 'center',
+    backgroundColor: offWhite,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

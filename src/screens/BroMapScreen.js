@@ -8,11 +8,6 @@ function BroMapContainer(props) {
   return <BroMap {...props} />;
 }
 
-BroMapContainer.navigationOptions = ({ navigation }) => ({
-  title: 'Bro Map',
-  headerLeft: <BackButton onPress={() => navigation.goBack(null)} />,
-});
-
 const mapStateToProps = state => state;
 
 export default connect(mapStateToProps, actions)(BroMapContainer);

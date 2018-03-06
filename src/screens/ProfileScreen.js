@@ -8,10 +8,10 @@ function ProfileContainer(props) {
   return <Profile {...props} />;
 }
 
-ProfileContainer.navigationOptions = ({ navigation }) => ({
-  title: 'Brofile',
-  headerLeft: <BackButton onPress={() => navigation.goBack(null)} />,
-});
+// ProfileContainer.navigationOptions = ({ navigation }) => ({
+//   title: 'Brofile',
+//   headerLeft: <BackButton onPress={() => navigation.goBack(null)} />,
+// });
 
 const mapStateToProps = state => ({
   ...state.userState,

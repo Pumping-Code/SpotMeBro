@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, Container, Button, Content } from 'native-base';
+import { Container, Button, Content } from 'native-base';
 import { Dimensions } from 'react-native';
 import ScaledImage from '../modules/ScaledImage';
-import styles from 'styles';
+import TextSMB from '../modules/TextSMB';
+import styles, { buttonStyles } from 'styles';
 
 function Profile(props) {
   return (
@@ -14,14 +15,15 @@ function Profile(props) {
         />
         {
           props.user.username ?
-            <Text>Hello, {props.user.username}!</Text>
+            <TextSMB>Sup, {props.user.username}!</TextSMB>
             : null
         }
         <Button
           full
+          style={buttonStyles.secondary}
           onPress={props.logOut}
         >
-          <Text>Log Out</Text>
+          <TextSMB>Log Out</TextSMB>
         </Button>
       </Content>
     </Container>

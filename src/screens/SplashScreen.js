@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Dimensions, StyleSheet, AsyncStorage } from 'react-native';
+import {
+  View,
+  Dimensions,
+  StyleSheet, ActivityIndicator,
+  AsyncStorage,
+} from 'react-native';
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
 import * as actions from 'actions/userActions';
@@ -34,7 +39,9 @@ class SplashScreen extends Component {
       quote: quotes[Math.floor(Math.random() * (quotes.length))],
     };
   }
-
+  componentDidMount() {
+    console.log(this.props);
+  }
   componentWillMount() {
     // AsyncStorage.removeItem('fb_token');
     // async task of checking for their access token
@@ -85,7 +92,13 @@ class SplashScreen extends Component {
               >
                 <TextSMB style={buttonStyles.secondaryText}>Sign up with Facebook</TextSMB>
               </Button>
-            </View> : null
+            </View>
+            :
+            <ActivityIndicator
+              animating
+              color={blueGrey}
+              size="large"
+            />
         }
       </View>
     );
