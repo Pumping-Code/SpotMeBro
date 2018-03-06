@@ -15,25 +15,45 @@ import { Icon } from 'native-base';
 
 // Screens
 import SplashScreen from '../screens/SplashScreen';
-// import AuthScreen from '../screens/AuthScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import BroMapScreen from '../screens/BroMapScreen';
 import SupBroScreen from '../screens/sign-up/SupBroScreen';
 import HowBroScreen from '../screens/sign-up/HowBroScreen';
 
+import TextSMB from '../components/modules/TextSMB';
 import { lightGreen, blueGrey, grey } from '../styles/index';
 
 const TabNav = TabNavigator(
   {
     Home: {
       screen: HomeScreen,
+      navigationOptions: () => ({
+        title: 'Spot Me Bro',
+        headerTitle: (
+          <TextSMB>Spot Me Bro</TextSMB>
+        ),
+        headerLeft: null,
+        gesturesEnabled: false,
+      }),
     },
     Profile: {
       screen: ProfileScreen,
+      navigationOptions: () => ({
+        title: 'Brofile',
+        headerTitle: (
+          <TextSMB>Brofile</TextSMB>
+        ),
+      }),
     },
     BroMap: {
       screen: BroMapScreen,
+      navigationOptions: () => ({
+        title: 'Bro Map',
+        headerTitle: (
+          <TextSMB>Bro Map</TextSMB>
+        ),
+      }),
     },
   },
   {
@@ -81,16 +101,11 @@ export const AppNavigator = StackNavigator({
       header: null,
     }),
   },
-  // Auth: {
-  //   screen: AuthScreen,
-  //   navigationOptions: () => ({
-  //     header: null,
-  //   }),
-  // },
   SignUp: {
     screen: signUpStack,
     navigationOptions: () => ({
       header: null,
+      gesturesEnabled: false,
     }),
   },
   App: {

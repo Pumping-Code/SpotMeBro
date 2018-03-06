@@ -8,11 +8,6 @@ function HomeContainer(props) {
   return <Home {...props} />;
 }
 
-HomeContainer.navigationOptions = () => ({
-  title: 'Spot Me Bro',
-  headerLeft: null,
-});
-
 const mapStateToProps = state => ({
   ...state.locationState,
 });

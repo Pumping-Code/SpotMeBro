@@ -11,6 +11,7 @@ export const CHECK_LOCATION_START = 'CHECK_LOCATION_START';
 export const CHECK_LOCATION_COMPLETE = 'CHECK_LOCATION_COMPLETE';
 export const GET_USER_LOCATION = 'GET_USER_LOCATION';
 
+// share location and notfify bros who are in the area
 export function locationSend() {
   return (dispatch, getState) => {
     const state = getState();
