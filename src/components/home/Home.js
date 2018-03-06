@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Easing,
 } from 'react-native';
-import { Button, Text } from 'native-base';
+import { Button } from 'native-base';
 import TextSMB from 'components/modules/TextSMB';
 import TextSMB2 from 'components/modules/TextSMB2';
 import LoadingModal from 'components/modules/LoadingModal';
@@ -136,6 +136,12 @@ class Home extends Component {
               </Button>
             </View>
           </Modal>
+          <LoadingModal
+            fetching={this.props.sendingLocation}
+            opacity={1}
+            flavorText="Notifying all Bros in the area..."
+            animationType="slide"
+          />
         </Animated.View>
       </View>
     );

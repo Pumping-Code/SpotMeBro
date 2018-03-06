@@ -22,6 +22,7 @@ const initialState = {
   timestamp: 'null',
   loading: false,
   fetchingLocation: false,
+  sendingLocation: false,
   userLocations: [],
   errorMessage: '',
 };
@@ -47,9 +48,9 @@ export default function locationReducer(state = initialState, action) {
   } else if (action.type === USER_LOCATION_ERROR) {
     return { ...state, errorMessage: action.errorMessage };
   } else if (action.type === LOCATION_SEND) {
-    return { ...state, loading: true };
+    return { ...state, sendingLocation: true };
   } else if (action.type === GET_LOCATIONS_COMPLETE) {
-    return { ...state, loading: false, userLocations: action.userLocations };
+    return { ...state, sendingLocation: false, userLocations: action.userLocations };
   }
   return state;
 }
