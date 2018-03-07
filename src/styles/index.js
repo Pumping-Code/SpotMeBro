@@ -1,11 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { Header } from 'react-navigation';
 
 const { height, width } = Dimensions.get('window');
 
 // height of react navigation header
-export const headerHeight = Header.height;
+export const headerHeight = 44;
 // default height of react navigation bottom tabnav
 export const tabNavHeight = 49;
 // if iPhone X add 58

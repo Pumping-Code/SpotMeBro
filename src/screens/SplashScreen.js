@@ -58,23 +58,21 @@ class SplashScreen extends Component {
           { padding: 20 },
         ]}
       >
-        <View style={{ height: height - offset }}>
-          <TextSMB style={{ textAlign: 'center', fontSize: 35, color: darkGrey }}>
+        <TextSMB style={{ textAlign: 'center', fontSize: 35, color: darkGrey }}>
             SPOT ME
-          </TextSMB>
-          <View
-            style={{
+        </TextSMB>
+        <View
+          style={{
             alignSelf: 'center',
             height: 5,
             width: 112,
             backgroundColor: lightGreen,
           }}
-          />
-          <TextSMB style={{ textAlign: 'center', fontSize: 81, color: blueGrey }}>
+        />
+        <TextSMB style={{ textAlign: 'center', fontSize: 81, color: blueGrey }}>
             BRO
-          </TextSMB>
-          <TextSMB style={splashStyles.smallText}>{`"${this.state.quote}"`}</TextSMB>
-        </View>
+        </TextSMB>
+        <TextSMB style={splashStyles.smallText}>{`"${this.state.quote}"`}</TextSMB>
         {
           !this.props.loading && !Object.keys(this.props.user).length ?
             <View>

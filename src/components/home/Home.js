@@ -16,10 +16,17 @@ import styles, { buttonStyles, blueGrey, darkGrey, lightGreen, offWhite, offset 
 
 const { height, width } = Dimensions.get('window');
 
+const spotWidth = 64;
+const meWidth = 41;
+const broWidth = 117;
+const broHeight = 119;
+
 class Home extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      showButton: true,
+    };
     this.animateButton = new Animated.Value(0);
     this.shrinkInterpolate = this.animateButton.interpolate({
       inputRange: [0, 1],
@@ -28,10 +35,27 @@ class Home extends Component {
     this.pressShrink = this.pressShrink.bind(this);
 
     this.animateFlash = new Animated.Value(0);
-    this.flashInterpolate = this.animateFlash.interpolate({
+    this.animateText1 = new Animated.Value(0);
+    this.animateText2 = new Animated.Value(0);
+    this.animateText3 = new Animated.Value(0);
+    this.text1Interpolate = this.animateText1.interpolate({
       inputRange: [0, 1],
-      outputRange: [1, 0],
+      outputRange: [-100, ((width - (spotWidth + meWidth)) / 2) - 3],
     });
+    this.text2Interpolate = this.animateText2.interpolate({
+      inputRange: [0, 1],
+      outputRange: [-100, ((width - (spotWidth + meWidth)) / 2) - 2],
+    });
+    this.text3Interpolate = this.animateText3.interpolate({
+      inputRange: [0, 1],
+      outputRange: [-100, ((height - broHeight) / 2) - 112],
+    });
+    this.animateTextScale = new Animated.Value(0);
+    this.textScaleInterpolate = this.animateTextScale.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 10],
+    });
+
     this.pressOutBounce = this.pressOutBounce.bind(this);
   }
 
@@ -51,15 +75,16 @@ class Home extends Component {
   }
 
   pressOutBounce() {
-    Animated.stagger(100, [
-      Animated.spring(
-        this.animateButton,
-        {
-          toValue: 0,
-          friction: 3,
-        },
-      ),
-      Animated.sequence([
+    this.setState({ showButton: false });
+    Animated.sequence([
+      Animated.stagger(50, [
+        Animated.spring(
+          this.animateButton,
+          {
+            toValue: 0,
+            friction: 3,
+          },
+        ),
         Animated.timing(
           this.animateFlash,
           {
@@ -68,16 +93,42 @@ class Home extends Component {
             easing: Easing.linear,
           },
         ),
+      ]),
+      Animated.sequence([
         Animated.timing(
-          this.animateFlash,
+          this.animateText1,
           {
-            toValue: 0,
-            duration: 1000,
+            toValue: 1,
+            duration: 200,
+            easing: Easing.linear,
+          },
+        ),
+        Animated.timing(
+          this.animateText2,
+          {
+            toValue: 1,
+            duration: 200,
+            easing: Easing.linear,
+          },
+        ),
+        Animated.timing(
+          this.animateText3,
+          {
+            toValue: 1,
+            duration: 200,
+            easing: Easing.linear,
+          },
+        ),
+        Animated.timing(
+          this.animateTextScale,
+          {
+            toValue: 1,
+            duration: 200,
             easing: Easing.linear,
           },
         ),
       ]),
-    ]).start();
+    ]).start(this.props.locationSend);
   }
 
   render() {
@@ -87,7 +138,6 @@ class Home extends Component {
           style={{
             flex: 1,
             justifyContent: 'center',
-            opacity: this.flashInterpolate,
             backgroundColor: blueGrey,
           }}
         >
@@ -99,8 +149,9 @@ class Home extends Component {
           >
             <TouchableWithoutFeedback
               onPressIn={this.pressShrink}
-              onPressOut={this.pressOutBounce}
-              onPress={this.props.locationSend}
+              onPressOut={() => {
+                this.pressOutBounce();
+              }}
             >
               <Animated.Image
                 style={{
@@ -114,6 +165,69 @@ class Home extends Component {
               />
             </TouchableWithoutFeedback>
           </Animated.View>
+
+
+          <Animated.View
+            style={{
+              display: this.state.showButton ? 'none' : 'flex',
+              position: 'absolute',
+              opacity: this.animateFlash,
+              backgroundColor: offWhite,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              flex: 1,
+              height,
+              width,
+            }}
+          />
+
+          <Animated.Text
+            style={{
+              textAlign: 'center',
+              fontSize: 35,
+              color: darkGrey,
+              fontFamily: 'anton-regular',
+              position: 'absolute',
+              left: this.text1Interpolate,
+              backgroundColor: 'transparent',
+              zIndex: 2,
+              transform: [{ scale: this.textScaleInterpolate }],
+            }}
+          >
+              SPOT
+          </Animated.Text>
+          <Animated.Text
+            style={{
+              textAlign: 'center',
+              fontSize: 35,
+              color: darkGrey,
+              fontFamily: 'anton-regular',
+              position: 'absolute',
+              right: this.text2Interpolate,
+              backgroundColor: 'transparent',
+              zIndex: 2,
+              transform: [{ scale: this.textScaleInterpolate }],
+            }}
+          >
+              ME
+          </Animated.Text>
+          <Animated.Text
+            style={{
+              textAlign: 'center',
+              fontSize: 81,
+              color: blueGrey,
+              fontFamily: 'anton-regular',
+              position: 'absolute',
+              left: (width / 2) - (broWidth / 2),
+              bottom: this.text3Interpolate,
+              backgroundColor: 'transparent',
+              zIndex: 2,
+              transform: [{ scale: this.textScaleInterpolate }],
+            }}
+          >
+              BRO
+          </Animated.Text>
+
 
           <Modal
             animationType="slide"
