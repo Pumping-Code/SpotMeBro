@@ -26,6 +26,10 @@ export function locationSend() {
     };
     // Set sendingLocation to true
     dispatch({ type: LOCATION_SEND });
+
+    // route user to Bro Map
+    dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
+
     // sent location to api
     smbApi({
       method,
@@ -33,13 +37,14 @@ export function locationSend() {
       data,
     })
       .then((response) => {
-        // set locations to redux and set sendingLocation false
-        dispatch({
-          type: GET_LOCATIONS_COMPLETE,
-          userLocations: response.data,
-        });
-        // route user to Bro Map
-        dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
+        // give use a chance to read the loading message
+        setTimeout(() => {
+          // set locations to redux and set sendingLocation false
+          dispatch({
+            type: GET_LOCATIONS_COMPLETE,
+            userLocations: response.data,
+          });
+        }, 2000);
       })
       .catch((err) => {
         console.log('err in location actions', err);

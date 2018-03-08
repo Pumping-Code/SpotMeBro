@@ -11,7 +11,6 @@ import {
 import { Button } from 'native-base';
 import TextSMB from 'components/modules/TextSMB';
 import TextSMB2 from 'components/modules/TextSMB2';
-import LoadingModal from 'components/modules/LoadingModal';
 import styles, { buttonStyles, blueGrey, darkGrey, lightGreen, offWhite, offset } from 'styles';
 
 const { height, width } = Dimensions.get('window');
@@ -33,6 +32,7 @@ class Home extends Component {
       showAnimation: false,
     };
     this.animateButton = new Animated.Value(0);
+    this.animateOpacity = new Animated.Value(1);
     this.shrinkInterpolate = this.animateButton.interpolate({
       inputRange: [0, 1],
       outputRange: [1, 0.9],
@@ -55,7 +55,7 @@ class Home extends Component {
       outputRange: [-100, ((height - (broHeight / 2)) / 2) - 58],
     });
     this.animateTextScale = new Animated.Value(1);
-    this.pressOutBounce = this.pressOutBounce.bind(this);
+    this.pressOutAnimations = this.pressOutAnimations.bind(this);
     this.animatedViews = [];
     valuesForAnimation.forEach((value) => {
       this.animatedViews[value] = new Animated.Value(0);
@@ -77,7 +77,7 @@ class Home extends Component {
     ).start();
   }
 
-  pressOutBounce() {
+  pressOutAnimations() {
     const animations = valuesForAnimation.map(item => Animated.timing(
       this.animatedViews[item],
       {
@@ -87,14 +87,25 @@ class Home extends Component {
     ));
     this.setState({ showAnimation: true });
     Animated.sequence([
-      Animated.spring(
-        this.animateButton,
-        {
-          toValue: 0,
-          friction: 3,
-        },
-      ),
-      Animated.stagger(5, animations),
+      Animated.stagger(1000, [
+        Animated.parallel([
+          Animated.spring(
+            this.animateOpacity,
+            {
+              toValue: 0.25,
+              friction: 1,
+            },
+          ),
+          Animated.spring(
+            this.animateButton,
+            {
+              toValue: 0,
+              friction: 1,
+            },
+          ),
+        ]),
+        Animated.stagger(5, animations),
+      ]),
       Animated.sequence([
         Animated.timing(
           this.animateText1,
@@ -131,15 +142,18 @@ class Home extends Component {
       ]),
     ])
       .start(() => {
-        this.animateText1.setValue(0);
-        this.animateText2.setValue(0);
-        this.animateText3.setValue(0);
-        this.animateTextScale.setValue(1);
-        valuesForAnimation.forEach((value) => {
-          this.animatedViews[value].setValue(0);
-        });
-        this.props.locationSend();
-        this.setState({ showAnimation: false });
+        setTimeout(() => {
+          this.props.locationSend();
+          this.animateText1.setValue(0);
+          this.animateText2.setValue(0);
+          this.animateText3.setValue(0);
+          this.animateOpacity.setValue(1);
+          this.animateTextScale.setValue(1);
+          valuesForAnimation.forEach((value) => {
+            this.animatedViews[value].setValue(0);
+          });
+          this.setState({ showAnimation: false });
+        }, 500);
       });
   }
 
@@ -151,6 +165,7 @@ class Home extends Component {
             flex: 1,
             justifyContent: 'center',
             backgroundColor: blueGrey,
+            opacity: this.animateOpacity,
           }}
         >
           <Animated.View
@@ -162,7 +177,7 @@ class Home extends Component {
             <TouchableWithoutFeedback
               onPressIn={this.pressShrink}
               onPressOut={() => {
-                this.pressOutBounce();
+                this.pressOutAnimations();
               }}
             >
               <Animated.Image
@@ -264,12 +279,6 @@ class Home extends Component {
               </Button>
             </View>
           </Modal>
-          <LoadingModal
-            fetching={this.props.sendingLocation}
-            opacity={1}
-            flavorText="Notifying all Bros in the area..."
-            animationType="slide"
-          />
         </Animated.View>
       </View>
     );
