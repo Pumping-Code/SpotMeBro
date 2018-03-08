@@ -21,11 +21,16 @@ const meWidth = 41;
 const broWidth = 117;
 const broHeight = 119;
 
+const valuesForAnimation = [];
+for (let i = 0; i < 200; i++) {
+  valuesForAnimation.push(i);
+}
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showButton: true,
+      showAnimation: false,
     };
     this.animateButton = new Animated.Value(0);
     this.shrinkInterpolate = this.animateButton.interpolate({
@@ -34,7 +39,6 @@ class Home extends Component {
     });
     this.pressShrink = this.pressShrink.bind(this);
 
-    this.animateFlash = new Animated.Value(0);
     this.animateText1 = new Animated.Value(0);
     this.animateText2 = new Animated.Value(0);
     this.animateText3 = new Animated.Value(0);
@@ -48,15 +52,14 @@ class Home extends Component {
     });
     this.text3Interpolate = this.animateText3.interpolate({
       inputRange: [0, 1],
-      outputRange: [-100, ((height - broHeight) / 2) - 112],
+      outputRange: [-100, ((height - (broHeight / 2)) / 2) - 58],
     });
-    this.animateTextScale = new Animated.Value(0);
-    this.textScaleInterpolate = this.animateTextScale.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 10],
-    });
-
+    this.animateTextScale = new Animated.Value(1);
     this.pressOutBounce = this.pressOutBounce.bind(this);
+    this.animatedViews = [];
+    valuesForAnimation.forEach((value) => {
+      this.animatedViews[value] = new Animated.Value(0);
+    });
   }
 
   componentDidMount() {
@@ -75,25 +78,23 @@ class Home extends Component {
   }
 
   pressOutBounce() {
-    this.setState({ showButton: false });
+    const animations = valuesForAnimation.map(item => Animated.timing(
+      this.animatedViews[item],
+      {
+        toValue: 1,
+        duration: 500,
+      },
+    ));
+    this.setState({ showAnimation: true });
     Animated.sequence([
-      Animated.stagger(50, [
-        Animated.spring(
-          this.animateButton,
-          {
-            toValue: 0,
-            friction: 3,
-          },
-        ),
-        Animated.timing(
-          this.animateFlash,
-          {
-            toValue: 1,
-            duration: 100,
-            easing: Easing.linear,
-          },
-        ),
-      ]),
+      Animated.spring(
+        this.animateButton,
+        {
+          toValue: 0,
+          friction: 3,
+        },
+      ),
+      Animated.stagger(5, animations),
       Animated.sequence([
         Animated.timing(
           this.animateText1,
@@ -122,13 +123,24 @@ class Home extends Component {
         Animated.timing(
           this.animateTextScale,
           {
-            toValue: 1,
+            toValue: 3,
             duration: 200,
             easing: Easing.linear,
           },
         ),
       ]),
-    ]).start(this.props.locationSend);
+    ])
+      .start(() => {
+        this.animateText1.setValue(0);
+        this.animateText2.setValue(0);
+        this.animateText3.setValue(0);
+        this.animateTextScale.setValue(1);
+        valuesForAnimation.forEach((value) => {
+          this.animatedViews[value].setValue(0);
+        });
+        this.props.locationSend();
+        this.setState({ showAnimation: false });
+      });
   }
 
   render() {
@@ -166,68 +178,70 @@ class Home extends Component {
             </TouchableWithoutFeedback>
           </Animated.View>
 
-
-          <Animated.View
-            style={{
-              display: this.state.showButton ? 'none' : 'flex',
-              position: 'absolute',
-              opacity: this.animateFlash,
-              backgroundColor: offWhite,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              flex: 1,
-              height,
-              width,
-            }}
-          />
-
-          <Animated.Text
-            style={{
-              textAlign: 'center',
-              fontSize: 35,
-              color: darkGrey,
-              fontFamily: 'anton-regular',
-              position: 'absolute',
-              left: this.text1Interpolate,
-              backgroundColor: 'transparent',
-              zIndex: 2,
-              transform: [{ scale: this.textScaleInterpolate }],
-            }}
-          >
-              SPOT
-          </Animated.Text>
-          <Animated.Text
-            style={{
-              textAlign: 'center',
-              fontSize: 35,
-              color: darkGrey,
-              fontFamily: 'anton-regular',
-              position: 'absolute',
-              right: this.text2Interpolate,
-              backgroundColor: 'transparent',
-              zIndex: 2,
-              transform: [{ scale: this.textScaleInterpolate }],
-            }}
-          >
-              ME
-          </Animated.Text>
-          <Animated.Text
-            style={{
-              textAlign: 'center',
-              fontSize: 81,
-              color: blueGrey,
-              fontFamily: 'anton-regular',
-              position: 'absolute',
-              left: (width / 2) - (broWidth / 2),
-              bottom: this.text3Interpolate,
-              backgroundColor: 'transparent',
-              zIndex: 2,
-              transform: [{ scale: this.textScaleInterpolate }],
-            }}
-          >
-              BRO
-          </Animated.Text>
-
+          <Modal transparent visible={this.state.showAnimation}>
+            <Animated.View
+              style={{
+                flex: 1,
+                transform: [{ scale: this.animateTextScale }],
+              }}
+            >
+              {
+                valuesForAnimation.reverse().map((a, i) => (
+                  <Animated.View
+                    key={i}
+                    style={{
+                      opacity: this.animatedViews[a],
+                      height: height / 200,
+                      width,
+                      backgroundColor: lightGreen,
+                    }}
+                  />
+                ))
+              }
+              <Animated.Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 35,
+                  color: darkGrey,
+                  fontFamily: 'anton-regular',
+                  position: 'absolute',
+                  left: this.text1Interpolate,
+                  bottom: ((height + broHeight) / 2) - 58,
+                  backgroundColor: 'transparent',
+                }}
+              >
+                SPOT
+              </Animated.Text>
+              <Animated.Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 35,
+                  color: darkGrey,
+                  fontFamily: 'anton-regular',
+                  position: 'absolute',
+                  right: this.text2Interpolate,
+                  bottom: ((height + broHeight) / 2) - 58,
+                  backgroundColor: 'transparent',
+                }}
+              >
+                ME
+              </Animated.Text>
+              <Animated.Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 81,
+                  color: blueGrey,
+                  fontFamily: 'anton-regular',
+                  position: 'absolute',
+                  left: (width / 2) - (broWidth / 2),
+                  bottom: this.text3Interpolate,
+                  backgroundColor: 'transparent',
+                }}
+              >
+                BRO
+              </Animated.Text>
+            </Animated.View>
+          </Modal>
 
           <Modal
             animationType="slide"
