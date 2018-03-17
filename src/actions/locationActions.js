@@ -26,29 +26,40 @@ export function locationSend() {
     };
     // Set sendingLocation to true
     dispatch({ type: LOCATION_SEND });
-
+    console.log(NavigationActions);
     // route user to Bro Map
     dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
+    // dispatch(NavigationActions.reset({
+    //   index: 0,
+    //   actions: [NavigationActions.navigate({ routeName: 'BroMap' })],
+    // }));
+    setTimeout(() => {
+      // set locations to redux and set sendingLocation false
+      dispatch({
+        type: GET_LOCATIONS_COMPLETE,
+        userLocations: [],
+      });
+    }, 2000);
 
     // sent location to api
-    smbApi({
-      method,
-      route,
-      data,
-    })
-      .then((response) => {
-        // give use a chance to read the loading message
-        setTimeout(() => {
-          // set locations to redux and set sendingLocation false
-          dispatch({
-            type: GET_LOCATIONS_COMPLETE,
-            userLocations: response.data,
-          });
-        }, 2000);
-      })
-      .catch((err) => {
-        console.log('err in location actions', err);
-      });
+    // smbApi({
+    //   method,
+    //   route,
+    //   data,
+    // })
+    //   .then((response) => {
+    //     // give use a chance to read the loading message
+    //     setTimeout(() => {
+    //       // set locations to redux and set sendingLocation false
+    //       dispatch({
+    //         type: GET_LOCATIONS_COMPLETE,
+    //         userLocations: response.data,
+    //       });
+    //     }, 2000);
+    //   })
+    //   .catch((err) => {
+    //     console.log('err in location actions', err);
+    //   });
   };
 }
 

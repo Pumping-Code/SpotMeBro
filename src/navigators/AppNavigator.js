@@ -37,21 +37,22 @@ const TabNav = TabNavigator(
         gesturesEnabled: false,
       }),
     },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: () => ({
-        title: 'Brofile',
-        headerTitle: (
-          <TextSMB>Brofile</TextSMB>
-        ),
-      }),
-    },
     BroMap: {
       screen: BroMapScreen,
       navigationOptions: () => ({
         title: 'Bro Map',
         headerTitle: (
           <TextSMB>Bro Map</TextSMB>
+        ),
+        headerLeft: null,
+      }),
+    },
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: () => ({
+        title: 'Brofile',
+        headerTitle: (
+          <TextSMB>Brofile</TextSMB>
         ),
       }),
     },
