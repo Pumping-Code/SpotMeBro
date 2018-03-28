@@ -56,6 +56,7 @@ const TabNav = TabNavigator(
         headerTitle: (
           <TextSMB>Brofile</TextSMB>
         ),
+        headerLeft: null,
       }),
     },
   },
