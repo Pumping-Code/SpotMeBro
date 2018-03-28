@@ -152,7 +152,7 @@ export const logOut = () => (dispatch) => {
   dispatch({ type: LOG_USER_OUT });
   AsyncStorage.removeItem('fb_token')
     .then(() => {
-      dispatch(NavigationActions.navigate({ routeName: 'Splash' }));
+      dispatch(NavigationActions.navigate({ routeName: 'Loading' }));
     });
 };
 

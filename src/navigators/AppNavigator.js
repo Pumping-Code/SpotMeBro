@@ -12,9 +12,10 @@ import {
   createReduxBoundAddListener,
 } from 'react-navigation-redux-helpers';
 import { Icon } from 'native-base';
+// import { fromLeft, fromTop, fadeIn } from 'react-navigation-transitions';
 
 // Screens
-import SplashScreen from '../screens/SplashScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import BroMapScreen from '../screens/BroMapScreen';
@@ -23,6 +24,7 @@ import HowBroScreen from '../screens/sign-up/HowBroScreen';
 
 import TextSMB from '../components/modules/TextSMB';
 import { lightGreen, blueGrey, grey } from '../styles/index';
+
 
 const TabNav = TabNavigator(
   {
@@ -93,11 +95,13 @@ const signUpStack = StackNavigator({
   HowBro: {
     screen: HowBroScreen,
   },
+}, {
+  initialRouteName: 'SupBro',
 });
 
 export const AppNavigator = StackNavigator({
-  Splash: {
-    screen: SplashScreen,
+  Loading: {
+    screen: LoadingScreen,
     navigationOptions: () => ({
       header: null,
     }),

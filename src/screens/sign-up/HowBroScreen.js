@@ -39,7 +39,7 @@ function HowBroScreen(props) {
       <Button
         style={buttonStyles.primary}
         full
-        onPress={() => props.navigation.navigate('App')}
+        onPress={() => props.navigation.navigate('Home')}
       >
         <TextSMB style={[buttonStyles.primaryText]}>Finish</TextSMB>
       </Button>

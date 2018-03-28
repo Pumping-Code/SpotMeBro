@@ -24,7 +24,7 @@ const quotes = [
   'I\'ll be back.',
 ];
 
-const splashStyles = StyleSheet.create({
+const loadingStyles = StyleSheet.create({
   smallText: {
     fontSize: 25,
     color: darkGrey,
@@ -32,7 +32,7 @@ const splashStyles = StyleSheet.create({
   },
 });
 
-class SplashScreen extends Component {
+class LoadingScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,7 +72,7 @@ class SplashScreen extends Component {
         <TextSMB style={{ textAlign: 'center', fontSize: 81, color: blueGrey }}>
             BRO
         </TextSMB>
-        <TextSMB style={splashStyles.smallText}>{`"${this.state.quote}"`}</TextSMB>
+        <TextSMB style={loadingStyles.smallText}>{`"${this.state.quote}"`}</TextSMB>
         {
           !this.props.loading && !Object.keys(this.props.user).length ?
             <View>
@@ -103,7 +103,7 @@ class SplashScreen extends Component {
   }
 }
 
-SplashScreen.propTypes = {
+LoadingScreen.propTypes = {
   checkForToken: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
@@ -112,4 +112,4 @@ const mapStateToProps = state => ({
   ...state.userState,
 });
 
-export default connect(mapStateToProps, { ...actions })(SplashScreen);
+export default connect(mapStateToProps, { ...actions })(LoadingScreen);

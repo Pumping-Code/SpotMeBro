@@ -1,6 +1,6 @@
 import { AppNavigator } from 'navigators/AppNavigator';
 
-const firstAction = AppNavigator.router.getActionForPathAndParams('Splash');
+const firstAction = AppNavigator.router.getActionForPathAndParams('Loading');
 const initialNavState = AppNavigator.router.getStateForAction(firstAction);
 
 export default function navigationReducer(state = initialNavState, action) {
