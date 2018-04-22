@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
-import { textColor } from '../../styles/index';
+import { textColor } from '../styles/index';
 
 class TextSMB extends Component {
   constructor(props) {

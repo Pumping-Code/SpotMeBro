@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  Dimensions,
-  StyleSheet, ActivityIndicator,
-  AsyncStorage,
+  StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
 import * as actions from 'actions/userActions';
-import styles, { buttonStyles, blueGrey, darkGrey, lightGreen, offset } from 'styles/index';
-import TextSMB from '../components/modules/TextSMB';
+import styles, { buttonStyles, blueGrey, darkGrey, lightGreen } from 'styles/index';
+import TextSMB from '../modules/TextSMB';
 
-const { height } = Dimensions.get('window');
 const quotes = [
   'The worst thing I can be is the same as everybody else. I hate that.',
   'Milk is for babies. When you grow up you have to drink beer.',
@@ -39,10 +37,8 @@ class LoadingScreen extends Component {
       quote: quotes[Math.floor(Math.random() * (quotes.length))],
     };
   }
+
   componentDidMount() {
-    console.log(this.props);
-  }
-  componentWillMount() {
     // AsyncStorage.removeItem('fb_token');
     // async task of checking for their access token
     // and location permission

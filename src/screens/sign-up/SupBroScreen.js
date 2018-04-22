@@ -6,8 +6,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import { View, Dimensions, TextInput } from 'react-native';
 import { Button } from 'native-base';
 import { editUserField } from 'actions/userActions';
-import TextSMB from '../../components/modules/TextSMB';
-import TextSMB2 from '../../components/modules/TextSMB2';
+import TextSMB from '../../modules/TextSMB';
+import TextSMB2 from '../../modules/TextSMB2';
 import styles, { blueGrey, buttonStyles, formStyles } from '../../styles/index';
 
 const feetOptions = [

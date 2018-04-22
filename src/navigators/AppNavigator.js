@@ -22,7 +22,7 @@ import BroMapScreen from '../screens/bromap/BroMapScreen';
 import SupBroScreen from '../screens/sign-up/SupBroScreen';
 import HowBroScreen from '../screens/sign-up/HowBroScreen';
 
-import TextSMB from '../components/modules/TextSMB';
+import TextSMB from '../modules/TextSMB';
 import { lightGreen, blueGrey, grey } from '../styles/index';
 
 

@@ -8,7 +8,7 @@ export default class ScaledImage extends Component {
     this.state = { source: { uri: this.props.uri } };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     Image.getSize(this.props.uri, (width, height) => {
       if (this.props.width && !this.props.height) {
         this.setState({ width: this.props.width, height: height * (this.props.width / width) });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { MapView } from 'expo';
-import LoadingModal from 'components/modules/LoadingModal';
-import styles from 'styles';
+import LoadingModal from '../../modules/LoadingModal';
+import styles from '../../styles';
 
 function BroMap(props) {
   return (

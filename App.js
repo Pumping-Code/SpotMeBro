@@ -53,7 +53,6 @@ class App extends Component {
 
   render() {
     if (this.state.fontLoaded) {
-      console.log('fonts loaded: ', this.state.fontLoaded);
       return (
         <Provider store={store}>
           <AppWithNavigationState />

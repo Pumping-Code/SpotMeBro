@@ -9,9 +9,9 @@ import {
   Easing,
 } from 'react-native';
 import { Button } from 'native-base';
-import TextSMB from 'components/modules/TextSMB';
-import TextSMB2 from 'components/modules/TextSMB2';
-import styles, { buttonStyles, blueGrey, darkGrey, lightGreen, offWhite, offset } from 'styles';
+import TextSMB from '../../modules/TextSMB';
+import TextSMB2 from '../../modules/TextSMB2';
+import styles, { buttonStyles, blueGrey, darkGrey, lightGreen } from '../../styles';
 
 const { height, width } = Dimensions.get('window');
 

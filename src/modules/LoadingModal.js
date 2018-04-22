@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
 import TextSMB from './TextSMB';
-import { offWhite, blueGrey } from '../../styles/index';
+import { offWhite, blueGrey } from '../styles/index';
 
 const { height, width } = Dimensions.get('window');
 

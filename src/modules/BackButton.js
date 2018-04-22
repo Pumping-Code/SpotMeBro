@@ -18,4 +18,4 @@ BackButton.propTypes = {
   onPress: PropTypes.func.isRequired,
 };
 
-export { BackButton };
+export default BackButton;

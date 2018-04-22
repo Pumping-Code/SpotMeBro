@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Brofile from './Brofile';
 import * as actions from '../../actions/userActions';
-import { BackButton } from 'components/modules';
 
 function BrofileScreen(props) {
   return <Brofile {...props} />;
