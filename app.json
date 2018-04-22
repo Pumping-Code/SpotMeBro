@@ -1,6 +1,6 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0",
+    "sdkVersion": "26.0.0",
     "name": "Spot Me Bro",
     "description": "For when a Bro needs a spot",
     "slug": "spot-me-bro",
@@ -15,8 +15,5 @@
     },
     "facebookAppId": "667138290125485",
     "facebookDisplayName": "Spot Me Bro"
-  },
-  "packagerOpts": {
-    "assetExts": ["ttf"]
-  },
+  }
 }

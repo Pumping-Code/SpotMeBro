@@ -18,7 +18,7 @@ class App extends Component {
     this.state = { fontLoaded: false };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await Font.loadAsync({
       'anton-regular': require('./assets/fonts/Anton-Regular.ttf'),
       'open-sans-regular': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -29,29 +29,26 @@ class App extends Component {
       // 'open-sans-italic': require('./assets/fonts/OpenSans-Italic.ttf'),
       Ionicons: require('native-base/Fonts/Ionicons.ttf'),
     });
-    this.setState({ fontLoaded: true });
-    // registerForPushNotificationsAsync();
-
     // Handle notifications that are received or selected while the app
     // is open. If the app was closed and then opened by tapping the
     // notification (rather than just tapping the app icon to open it),
     // this function will fire on the next tick after the app starts
     // with the notification data.
     this.notificationSubscription = Notifications.addListener(this.handleNotification);
+
+    this.setState({ fontLoaded: true });
   }
 
   handleNotification(notification) {
-    console.log('--------');
-    console.log(notification);
-    console.log('--------');
-    Toast.show({
-      text: 'A BRO NEEDS YOUR HELP',
-      position: 'bottom',
-      buttonText: 'Okay',
-      onClose() {
-        console.log('closed manually');
-      },
-    });
+    console.log('notification', notification);
+    // Toast.show({
+    //   text: 'A BRO NEEDS YOUR HELP',
+    //   position: 'bottom',
+    //   buttonText: 'Okay',
+    //   onClose() {
+    //     console.log('closed manually');
+    //   },
+    // });
   }
 
   render() {

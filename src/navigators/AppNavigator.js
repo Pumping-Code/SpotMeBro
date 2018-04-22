@@ -16,9 +16,9 @@ import { Icon } from 'native-base';
 
 // Screens
 import LoadingScreen from '../screens/LoadingScreen';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import BroMapScreen from '../screens/BroMapScreen';
+import HomeScreen from '../screens/home/HomeScreen';
+import BrofileScreen from '../screens/brofile/BrofileScreen';
+import BroMapScreen from '../screens/bromap/BroMapScreen';
 import SupBroScreen from '../screens/sign-up/SupBroScreen';
 import HowBroScreen from '../screens/sign-up/HowBroScreen';
 
@@ -49,8 +49,8 @@ const TabNav = TabNavigator(
         headerLeft: null,
       }),
     },
-    Profile: {
-      screen: ProfileScreen,
+    Brofile: {
+      screen: BrofileScreen,
       navigationOptions: () => ({
         title: 'Brofile',
         headerTitle: (
@@ -67,7 +67,7 @@ const TabNav = TabNavigator(
         let iconName;
         if (routeName === 'Home') {
           iconName = 'md-home';
-        } else if (routeName === 'Profile') {
+        } else if (routeName === 'Brofile') {
           iconName = 'md-person';
         } else if (routeName === 'BroMap') {
           iconName = 'md-globe';

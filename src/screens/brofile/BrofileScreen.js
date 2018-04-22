@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Profile from 'components/profile/Profile';
-import * as actions from 'actions/userActions';
+import Brofile from './Brofile';
+import * as actions from '../../actions/userActions';
 import { BackButton } from 'components/modules';
 
-function ProfileContainer(props) {
-  return <Profile {...props} />;
+function BrofileScreen(props) {
+  return <Brofile {...props} />;
 }
 
 // ProfileContainer.navigationOptions = ({ navigation }) => ({
@@ -18,4 +18,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, actions)(ProfileContainer);
+export default connect(mapStateToProps, actions)(BrofileScreen);
