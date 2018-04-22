@@ -21,7 +21,7 @@ const broWidth = 117;
 const broHeight = 119;
 
 const valuesForAnimation = [];
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 20; i += 1) {
   valuesForAnimation.push(i);
 }
 
@@ -73,6 +73,7 @@ class Home extends Component {
         toValue: 1,
         duration: 100,
         easing: Easing.linear,
+        useNativeDriver: true,
       },
     ).start();
   }
@@ -83,6 +84,7 @@ class Home extends Component {
       {
         toValue: 1,
         duration: 500,
+        useNativeDriver: true,
       },
     ));
     this.setState({ showAnimation: true });
@@ -94,6 +96,7 @@ class Home extends Component {
             {
               toValue: 0.25,
               friction: 1,
+              useNativeDriver: true,
             },
           ),
           Animated.spring(
@@ -101,6 +104,7 @@ class Home extends Component {
             {
               toValue: 0,
               friction: 1,
+              useNativeDriver: true,
             },
           ),
         ]),
@@ -206,7 +210,7 @@ class Home extends Component {
                     key={i}
                     style={{
                       opacity: this.animatedViews[a],
-                      height: height / 200,
+                      height: height / 20,
                       width,
                       backgroundColor: lightGreen,
                     }}
