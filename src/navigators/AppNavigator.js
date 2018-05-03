@@ -15,7 +15,7 @@ import { Icon } from 'native-base';
 // import { fromLeft, fromTop, fadeIn } from 'react-navigation-transitions';
 
 // Screens
-import LoadingScreen from '../screens/LoadingScreen';
+import LoadingScreen from '../screens/loading/LoadingScreen';
 import HomeScreen from '../screens/home/HomeScreen';
 import BrofileScreen from '../screens/brofile/BrofileScreen';
 import BroMapScreen from '../screens/bromap/BroMapScreen';
@@ -77,6 +77,7 @@ const TabNav = TabNavigator(
     }),
     tabBarComponent: TabBarBottom,
     initialRoute: 'Home',
+    order: ['Home', 'BroMap', 'Brofile'],
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false,

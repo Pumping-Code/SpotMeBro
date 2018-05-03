@@ -8,8 +8,8 @@ import {
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
 import * as actions from 'actions/userActions';
-import styles, { buttonStyles, blueGrey, darkGrey, lightGreen } from 'styles/index';
-import TextSMB from '../modules/TextSMB';
+import styles, { buttonStyles, blueGrey, darkGrey, lightGreen } from '../../styles';
+import TextSMB from '../../modules/TextSMB';
 
 const quotes = [
   'The worst thing I can be is the same as everybody else. I hate that.',
