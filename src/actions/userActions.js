@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
-import { Facebook } from 'expo';
+import * as Facebook from 'expo-facebook';
 import axios from 'axios';
-import { NavigationActions } from 'react-navigation';
+import NavigationService from '../navigators/NavigationService';
 
 import smbApi from 'services/api';
 import smbAuth from 'services/auth';
@@ -67,14 +67,16 @@ export function queryFacebookAPI(token) {
                   type: SET_USER_TO_STATE,
                   user: response.data,
                 });
+                
+                NavigationService.navigate('Home');
 
-                if (response.data.signupComplete) {
-                  // Send the user to the Home screen
-                  dispatch(NavigationActions.navigate({ routeName: 'Home' }));
-                } else {
-                  // Send the user to the sign up flow
-                  dispatch(NavigationActions.navigate({ routeName: 'SignUp' }));
-                }
+                // if (response.data.signupComplete) {
+                //   // Send the user to the Home screen
+                //   NavigationService.navigate('Home');
+                // } else {
+                //   // Send the user to the sign up flow
+                //   NavigationService.navigate('SignUp');
+                // }
               })
               .catch((error) => {
                 console.log('login error:', error);
@@ -94,7 +96,7 @@ export function queryFacebookAPI(token) {
         if (error.response.data.error.code === 190) {
           AsyncStorage.removeItem('fb_token')
             .then(() => {
-              dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
+              NavigationService.navigate('AuthLoading');
             });
         }
       });
@@ -110,17 +112,12 @@ export function checkForToken() {
         if (token !== null) {
           queryFacebookAPI(token)(dispatch);
         } else {
+          // set loading to false
           dispatch({ type: NO_ASYNCSTORAGE_TOKEN_FOUND });
         }
-        // else {
-        //   // send user the login screen
-        //   // dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
-        // }
       })
       .catch((error) => {
         console.log('Error checking AsyncStorage for fb_token: ', error);
-        // send user the login screen
-        // dispatch(NavigationActions.navigate({ routeName: 'Auth' }));
       });
   };
 }
@@ -160,7 +157,7 @@ export function logOut() {
     dispatch({ type: LOG_USER_OUT });
     AsyncStorage.removeItem('fb_token')
       .then(() => {
-        dispatch(NavigationActions.navigate({ routeName: 'Loading' }));
+        NavigationService.navigate('AuthLoading');
       });
   };
 }
