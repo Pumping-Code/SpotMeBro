@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  StyleSheet,
   ActivityIndicator,
 } from 'react-native';
 import { Button } from 'native-base';
@@ -10,6 +9,7 @@ import { connect } from 'react-redux';
 import * as actions from 'actions/userActions';
 import styles, { buttonStyles, blueGrey, darkGrey, lightGreen } from '../../styles';
 import TextSMB from '../../modules/TextSMB';
+import SMBLogo from '../../modules/SMBLogo';
 
 const quotes = [
   'The worst thing I can be is the same as everybody else. I hate that.',
@@ -21,14 +21,6 @@ const quotes = [
   'Just remember, you can\'t climb the ladder of success with your hands in your pockets.',
   'I\'ll be back.',
 ];
-
-const loadingStyles = StyleSheet.create({
-  smallText: {
-    fontSize: 25,
-    color: darkGrey,
-    textAlign: 'center',
-  },
-});
 
 class LoadingScreen extends Component {
   constructor(props) {
@@ -54,21 +46,16 @@ class LoadingScreen extends Component {
           { padding: 20 },
         ]}
       >
-        <TextSMB style={{ textAlign: 'center', fontSize: 35, color: darkGrey }}>
-            SPOT ME
-        </TextSMB>
-        <View
+        <SMBLogo />
+        <TextSMB
           style={{
-            alignSelf: 'center',
-            height: 5,
-            width: 112,
-            backgroundColor: lightGreen,
+            fontSize: 25,
+            color: darkGrey,
+            textAlign: 'center',
           }}
-        />
-        <TextSMB style={{ textAlign: 'center', fontSize: 81, color: blueGrey }}>
-            BRO
+        >
+          {`"${this.state.quote}"`}
         </TextSMB>
-        <TextSMB style={loadingStyles.smallText}>{`"${this.state.quote}"`}</TextSMB>
         {
           !this.props.loading && !Object.keys(this.props.user).length ?
             <View>

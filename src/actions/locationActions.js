@@ -1,6 +1,8 @@
 import { Platform } from 'react-native';
-import { Constants, Location, Permissions } from 'expo';
-import { NavigationActions } from 'react-navigation';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
+import { Constants } from 'expo';
+import NavigationService from '../navigators/NavigationService';
 import smbApi from 'services/api';
 
 export const LOCATION_SEND = 'LOCATION_SEND';
@@ -28,11 +30,7 @@ export function locationSend() {
     dispatch({ type: LOCATION_SEND });
 
     // route user to Bro Map
-    dispatch(NavigationActions.navigate({ routeName: 'BroMap' }));
-    // dispatch(NavigationActions.reset({
-    //   index: 0,
-    //   actions: [NavigationActions.navigate({ routeName: 'BroMap' })],
-    // }));
+    NavigationService.navigate('BroMap');
     setTimeout(() => {
       // set locations to redux and set sendingLocation false
       dispatch({
@@ -102,7 +100,6 @@ export function askUserLocationPermission() {
             type: USER_LOCATION_ERROR,
             errorMessage: 'Permission to access location was denied',
           });
-          // dispatch(NavigationActions.navigate({ routeName: 'App' }));
         }
       });
   };

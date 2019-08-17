@@ -1,4 +1,5 @@
-import { Permissions, Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo';
 import { AsyncStorage } from 'react-native';
 
 export default async function smbPush() {

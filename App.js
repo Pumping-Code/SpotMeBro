@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Font, Notifications } from 'expo';
+import { Notifications } from 'expo';
+import * as Font from 'expo-font';
 import { Provider } from 'react-redux';
 import { View, Image, ActivityIndicator } from 'react-native';
-import { Toast } from 'native-base';
+// import { Toast } from 'native-base';
 import styles, { blueGrey, darkGrey, grey, lightGreen, offWhite } from './src/styles/index';
 // import Reactotron from 'reactotron-react-native';
 import AppWithNavigationState from './src/navigators/AppNavigator';
 // import host from './host';
 import store from './src/store';
 // import registerForPushNotificationsAsync from 'registerForPushNotificationsAsync';
+import NavigationService from './src/navigators/NavigationService';
 
 // Reactotron.configure({ host }).useReactNative();
 
@@ -36,7 +38,9 @@ class App extends Component {
     // with the notification data.
     this.notificationSubscription = Notifications.addListener(this.handleNotification);
 
-    this.setState({ fontLoaded: true });
+    setTimeout(() => {
+      this.setState({ fontLoaded: true });
+    }, 3000)
   }
 
   handleNotification(notification) {
@@ -55,10 +59,15 @@ class App extends Component {
     if (this.state.fontLoaded) {
       return (
         <Provider store={store}>
-          <AppWithNavigationState />
+          <AppWithNavigationState
+            ref={(navigatorRef) => {
+              NavigationService.setTopLevelNavigator(navigatorRef);
+            }}
+          />
         </Provider>
       );
     }
+
     return (
       <View style={[styles.container, styles.justifyCenter, { alignItems: 'center' }]}>
         <Image
